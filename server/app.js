@@ -35,6 +35,24 @@ app.use('/api/profiles', routes.profiles);
 
 io.on('connection', function (socket) {
   console.log('a user connected!');
+
+  // webRTC stuff
+  socket.on('offer', function (offer) {
+    console.log('offer heard:', offer);
+    socket.broadcast.emit('offer', offer);
+  });
+
+  socket.on('answer', function (answer) {
+    console.log('answer heard:', answer);
+    socket.broadcast.emit('ice', answer);
+  });
+
+  socket.on('ice', function (candidate) {
+    console.log('candidate heard:', candidate);
+    socket.broadcast.emit('ice', candidate);
+  });
+
+  // Socket stuff for editor a
   socket.on('changed_code', function (code) {
     console.log('user changed code:', code);
     socket.broadcast.emit('changed_code', code);
