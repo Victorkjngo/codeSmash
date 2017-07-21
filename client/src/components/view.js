@@ -24,7 +24,6 @@ class View extends Component {
   }
 
   componentDidMount () {
-
     var options = {
       cursorBlink: true,
       tabStopWidth: 4
@@ -113,7 +112,10 @@ class View extends Component {
     return (
       <div className="view">
         <Playground handleRunClick={this.handleRunClick} handleClearClick={this.handleClearClick} editorCode={this.state.editorCode} socket={this.state.socket}/>
-         <div className="Terminal" id="terminal"></div>        
+          <div className="Terminal" id="terminal"></div>
+          <video id="localVideo" width="320" height="240" controls>
+          </video>
+          <div id="remotesVideos"></div>        
       </div>
     );
   }
