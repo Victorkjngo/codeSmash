@@ -25,7 +25,7 @@ class WebRTC extends Component {
 
   render () {
     return (
-      <div className="twilio">
+      <div className="WebRTC">
         <video id="localVideo" width="320" height="240" controls></video>
         <div id="remotesVideos"></div>   
       </div>

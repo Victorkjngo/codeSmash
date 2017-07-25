@@ -31,7 +31,7 @@ class Playground extends Component {
         name: 'javascript',
         json: true
       }
-      // viewportMargin: Infinity
+
     };
     textArea.value = defaultString;
     var codeMirror = CodeMirror.fromTextArea(textArea, options);
@@ -47,13 +47,7 @@ class Playground extends Component {
     this.setState({cursorLoc: {line, ch}});
 
     codeMirror.on('cursorActivity', _ => {
-      var { line, ch } = codeMirror.getCursor();
-      if (JSON.stringify({line, ch}) !== JSON.stringify(this.state.cursorLoc)) {
-        this.setState({cursorLoc: {line, ch}}, _ => {
-          console.log('Cursor moved!', 'New cursor loc:', JSON.stringify({line, ch}));
-          this.props.socket.emit('cursor_moved', {line, ch});
-        });
-      }
+      this.props.socket.emit('cursor_moved', {line, ch});
     });
     
 
@@ -64,7 +58,7 @@ class Playground extends Component {
     });
 
     this.props.socket.on('cursor_moved', (cursorLoc) => {
-      codeMirror.setCursor(cursorLoc);
+      codeMirror.setCursor(cursorLoc); // set other cursor location
     });
     
   }
