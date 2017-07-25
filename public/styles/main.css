@@ -35,6 +35,11 @@ body, html {
   width: 100%;
 }
 
+/* Style CodeMirror here!*/
+.CodeMirror-cursor {
+  border-left: 3px solid steelblue;
+}
+
 .Terminal {
   color: white;
   float: right;

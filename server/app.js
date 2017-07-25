@@ -40,6 +40,11 @@ io.on('connection', function (socket) {
   console.log('Connecto to room numba', socket.rooms);
   console.log('Handshake details', JSON.stringify(socket.handshake));
 
+  socket.on('cursor_moved', function (cursorLoc) {
+    console.log('User', socket.id, 'moved mouse:', cursorLoc);
+    socket.broadcast.emit('cursor_moved', cursorLoc);
+  });
+
   socket.on('changed_code', function (code) {
     console.log('user changed code:', code);
     socket.broadcast.emit('changed_code', code);

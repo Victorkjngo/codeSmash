@@ -17,6 +17,7 @@ class Playground extends Component {
     var textArea = document.getElementById('code');
     var defaultString = this.props.editorCode;
     var options = {
+      tabSize: 2,
       indentUnit: 2,
       lineNumbers: true,
       lineWrapping: true,
@@ -31,14 +32,16 @@ class Playground extends Component {
     textArea.value = defaultString;
     var codeMirror = CodeMirror.fromTextArea(textArea, options);
     codeMirror.setSize('100%', '100%');
+    codeMirror.execCommand('goDocEnd');
     codeMirror.on('change', (cm, change) => {
       cm.save();
       var code = codeMirror.getValue();
       this.props.socket.emit('changed_code', code);
     });
 
-    codeMirror.on('cursorActivity', (one, two) => {
-      console.log('Cursor moved!');
+    codeMirror.on('cursorActivity', (one, two, three) => {
+      var cursorLoc = codeMirror.getCursor();
+      this.props.socket.emit('cursor_moved', cursorLoc);
     });
     
     console.log(document.getElementsByClassName('CodeMirror'));
@@ -55,6 +58,10 @@ class Playground extends Component {
       if (codeMirror.getValue() !== code) {
         codeMirror.setValue(code);
       }
+    });
+
+    this.props.socket.on('cursor_moved', (cursorLoc) => {
+      codeMirror.setCursor(cursorLoc);
     });
     
   }
