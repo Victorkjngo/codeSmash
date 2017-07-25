@@ -8,6 +8,10 @@ class Playground extends Component {
   constructor (props) {
     super(props);
 
+    this.state = {
+      cursorLoc: undefined
+    };
+
     this.saveCodeSnippet = props.saveCodeSnippet;
     this.handleRunClick = props.handleRunClick;
     this.handleClearClick = props.handleClearClick;
@@ -39,19 +43,18 @@ class Playground extends Component {
       this.props.socket.emit('changed_code', code);
     });
 
-    codeMirror.on('cursorActivity', (one, two, three) => {
-      var cursorLoc = codeMirror.getCursor();
-      this.props.socket.emit('cursor_moved', cursorLoc);
-    });
-    
-    console.log(document.getElementsByClassName('CodeMirror'));
+    var { line, ch } = codeMirror.getCursor();
+    this.setState({cursorLoc: {line, ch}});
 
-    // document.getElementsByClassName('CodeMirror')[0].addEventListener('change', ({key}) => {
-    //   console.log('key:', key);
-    //   var code = codeMirror.getValue();
-    //   this.props.socket.emit('changed_code', code);
-    // });
-  
+    codeMirror.on('cursorActivity', _ => {
+      var { line, ch } = codeMirror.getCursor();
+      if (JSON.stringify({line, ch}) !== JSON.stringify(this.state.cursorLoc)) {
+        this.setState({cursorLoc: {line, ch}}, _ => {
+          console.log('Cursor moved!', 'New cursor loc:', JSON.stringify({line, ch}));
+          this.props.socket.emit('cursor_moved', {line, ch});
+        });
+      }
+    });
     
 
     this.props.socket.on('changed_code', (code) => {
