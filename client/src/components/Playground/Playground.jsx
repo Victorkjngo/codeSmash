@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import CodeMirror from 'codemirror';
 import colorize from '../../../../node_modules/codemirror/addon/runmode/colorize.js';
 import javascript from '../../../../node_modules/codemirror/mode/javascript/javascript.js';
-// import requestt from 'request';
 
 class Playground extends Component {
   constructor (props) {
@@ -36,6 +35,10 @@ class Playground extends Component {
       cm.save();
       var code = codeMirror.getValue();
       this.props.socket.emit('changed_code', code);
+    });
+
+    codeMirror.on('cursorActivity', (one, two) => {
+      console.log('Cursor moved!');
     });
     
     console.log(document.getElementsByClassName('CodeMirror'));

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Playground, Terminal, Twilio } from './Playground/index.jsx';
+import { Playground, Terminal, WebRTC } from './Playground/index.jsx';
 import xTerm from 'xterm';
 import io from 'socket.io-client';
 import axios from 'axios';

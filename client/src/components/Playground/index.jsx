@@ -1,5 +1,5 @@
 import Playground from './Playground.jsx';
-import Twilio from './Twilio.jsx';
+import WebRTC from './WebRTC.jsx';
 
 module.exports.Playground = Playground;
-module.exports.Twilio = Twilio;
+module.exports.WebRTC = WebRTC;
