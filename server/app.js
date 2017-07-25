@@ -3,15 +3,18 @@ const express = require('express');
 const path = require('path');
 const middleware = require('./middleware');
 const routes = require('./routes');
+const bodyParser = require('body-parser');
 
 const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const io = require('socket.io').listen(server);
 
-// SOCKET IO TENTATIVE CODE
-const server = require('http').createServer(app);
-const io = require('socket.io')();
+// webrtc
+var channels = {};
+var sockets = {};
 
-
-io.attach(server);
+// middleware
 io.set('transports', ['websocket']);
 
 app.use(middleware.morgan('dev'));
@@ -35,6 +38,7 @@ app.use('/', routes.auth);
 app.use('/api', routes.api);
 app.use('/api/profiles', routes.profiles);
 
+// socketIO to signaling server
 io.on('connection', function (socket) {
   console.log('a user connected. Client id:', socket.id);
   console.log('Connecto to room numba', socket.rooms);
@@ -68,7 +72,7 @@ io.on('connection', function (socket) {
     console.error('Error: ', error);
   });
 
-  
+
 
 
 });
