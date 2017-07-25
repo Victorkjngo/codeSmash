@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom';
 import CodeMirror from 'codemirror';
 import colorize from '../../../../node_modules/codemirror/addon/runmode/colorize.js';
 import javascript from '../../../../node_modules/codemirror/mode/javascript/javascript.js';
-// import requestt from 'request';
 
 class Playground extends Component {
   constructor (props) {
     super(props);
+
+    this.state = {
+      cursorLoc: undefined
+    };
 
     this.saveCodeSnippet = props.saveCodeSnippet;
     this.handleRunClick = props.handleRunClick;
@@ -18,6 +21,7 @@ class Playground extends Component {
     var textArea = document.getElementById('code');
     var defaultString = this.props.editorCode;
     var options = {
+      tabSize: 2,
       indentUnit: 2,
       lineNumbers: true,
       lineWrapping: true,
@@ -27,31 +31,34 @@ class Playground extends Component {
         name: 'javascript',
         json: true
       }
-      // viewportMargin: Infinity
+
     };
     textArea.value = defaultString;
     var codeMirror = CodeMirror.fromTextArea(textArea, options);
     codeMirror.setSize('100%', '100%');
+    codeMirror.execCommand('goDocEnd');
     codeMirror.on('change', (cm, change) => {
       cm.save();
       var code = codeMirror.getValue();
       this.props.socket.emit('changed_code', code);
     });
-    
-    console.log(document.getElementsByClassName('CodeMirror'));
 
-    // document.getElementsByClassName('CodeMirror')[0].addEventListener('change', ({key}) => {
-    //   console.log('key:', key);
-    //   var code = codeMirror.getValue();
-    //   this.props.socket.emit('changed_code', code);
-    // });
-  
+    var { line, ch } = codeMirror.getCursor();
+    this.setState({cursorLoc: {line, ch}});
+
+    codeMirror.on('cursorActivity', _ => {
+      this.props.socket.emit('cursor_moved', {line, ch});
+    });
     
 
     this.props.socket.on('changed_code', (code) => {
       if (codeMirror.getValue() !== code) {
         codeMirror.setValue(code);
       }
+    });
+
+    this.props.socket.on('cursor_moved', (cursorLoc) => {
+      codeMirror.setCursor(cursorLoc); // set other cursor location
     });
     
   }

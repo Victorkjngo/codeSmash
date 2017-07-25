@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Playground, Terminal, Twilio } from './Playground/index.jsx';
+import { Playground, Terminal, WebRTC } from './Playground/index.jsx';
 import xTerm from 'xterm';
 import io from 'socket.io-client';
 import axios from 'axios';
@@ -175,8 +175,7 @@ class View extends Component {
   render () {
     return (
       <div className="view">
-        <video id="localVideo" width="320" height="240" controls></video>
-        <div id="remotesVideos"></div>      
+        {/* <WebRTC />    */}
         <Playground saveCodeSnippet={this.saveCodeSnippet} handleRunClick={this.handleRunClick} handleClearClick={this.handleClearClick} editorCode={this.state.editorCode} socket={this.state.socket}/>
         <div className="Terminal" id="terminal"></div>        
       </div>

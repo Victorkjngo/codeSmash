@@ -47,6 +47,7 @@
     "replify": "^1.2.0",
     "request": "^2.81.0",
     "sandbox": "^0.8.6",
+    "simplewebrtc": "^3.0.1",
     "socket.io": "^2.0.3",
     "xterm": "^2.8.1"
   },
