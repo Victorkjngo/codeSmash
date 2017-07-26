@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import CodeMirror from 'codemirror';
 import colorize from '../../../../node_modules/codemirror/addon/runmode/colorize.js';
+import activeLine from '../../../../node_modules/codemirror/addon/selection/active-line.js';
 import javascript from '../../../../node_modules/codemirror/mode/javascript/javascript.js';
 
 class Playground extends Component {
@@ -9,7 +10,7 @@ class Playground extends Component {
     super(props);
 
     this.state = {
-      cursorLoc: undefined
+      otherClientCursor: undefined
     };
 
     this.saveCodeSnippet = props.saveCodeSnippet;
@@ -30,9 +31,13 @@ class Playground extends Component {
       mode: {
         name: 'javascript',
         json: true
+      },
+      styleActiveLine: {
+        nonEmpty: true
       }
 
     };
+
     textArea.value = defaultString;
     var codeMirror = CodeMirror.fromTextArea(textArea, options);
     codeMirror.setSize('100%', '100%');
@@ -47,6 +52,7 @@ class Playground extends Component {
     this.setState({cursorLoc: {line, ch}});
 
     codeMirror.on('cursorActivity', _ => {
+      var { line, ch } = codeMirror.getCursor();
       this.props.socket.emit('cursor_moved', {line, ch});
     });
     
@@ -58,7 +64,41 @@ class Playground extends Component {
     });
 
     this.props.socket.on('cursor_moved', (cursorLoc) => {
-      codeMirror.setCursor(cursorLoc); // set other cursor location
+      // codeMirror.setCursor(cursorLoc); // set other cursor location
+      // console.log('Cursor movement recieved! Moving bookmark...');
+      // codeMirror.setBookmark(cursorLoc);
+      // console.log('Bookmarks:', codeMirror.getAllMarks());
+      // codeMirror.addWidget(cursorLoc);
+      console.log('Cursor location at:', JSON.stringify(cursorLoc));
+      // var cursor = this.state.otherClientCursor;
+
+      // if (cursor) {
+      //   cursor.clear();
+      // } 
+      var {line, ch} = cursorLoc;
+      var widget = document.createElement('span');
+      widget.classList.add('otherClient');
+      
+      
+      this.setState((prevState, props) => {
+        if (prevState.otherClientCursor) {
+          prevState.otherClientCursor.clear();
+        }
+        var otherCursor = codeMirror.setBookmark(cursorLoc, {
+          widget: widget
+        });
+        return {otherClientCursor: otherCursor};
+      });
+      
+      // this.setState((prevState, props) => {
+      //   var otherCursor = codeMirror.markText({line: line, ch: ch + 1}, {line , ch: ch + 1}, {
+      //     className: 'otherClient',
+      //     atomic: true,
+      //     // startStyle: 'otherClient',
+      //   });
+      //   return {otherClientCursor: otherCursor};
+      // });
+      
     });
     
   }
