@@ -8,19 +8,11 @@ import Pricing from '../Pricing/Pricing.jsx';
 
 const routes = [
   { path: '/',
-    component: Home,
+    component: View,
     exact: true
   },
-  { path: '/in',
-    component: View,
-    routes: [
-      { path: '/in/demo',
-        component: View
-      },
-      { path: '/in/1',
-        component: View
-      }
-    ]
+  { path: '/home',
+    component: Home,
   },
   { path: '/dashboard',
     component: Dashboard,
@@ -34,7 +26,7 @@ module.exports = (
   <BrowserRouter history={ browserHistory }>
     <Switch>
       <Route exact path={'/'} component={View}></Route>
-      <Route path={'/in'} component={View}></Route>
+      <Route path={'/home'} component={Home}></Route>
       <Route path={'/dashboard'} component={Dashboard}></Route>
       <Route path={'/pricing'} component={Pricing}></Route>
     </Switch>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Playground, Terminal, WebRTC } from './Playground/index.jsx';
+import Navbar from './Routes/NavBar.jsx';
 import xTerm from 'xterm';
 import io from 'socket.io-client';
 import axios from 'axios';
@@ -176,6 +177,7 @@ class View extends Component {
     return (
       <div className="view">
         {/* <WebRTC />    */}
+        <Navbar/>
         <Playground saveCodeSnippet={this.saveCodeSnippet} handleRunClick={this.handleRunClick} handleClearClick={this.handleClearClick} editorCode={this.state.editorCode} socket={this.state.socket}/>
         <div className="Terminal" id="terminal"></div>        
       </div>
