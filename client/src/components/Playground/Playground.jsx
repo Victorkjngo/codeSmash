@@ -11,6 +11,7 @@ class Playground extends Component {
 
     this.state = {
       otherClientCursor: undefined
+
     };
 
     this.saveCodeSnippet = props.saveCodeSnippet;
