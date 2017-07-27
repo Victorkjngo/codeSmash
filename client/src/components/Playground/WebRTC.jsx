@@ -60,11 +60,11 @@ class WebRTC extends Component {
         'channel': channel,
         'userdata': userdata
       });
-    }
+    };
 
     const part_chat_channel = function(channel) {
       signaling_socket.emit('part', channel);
-    }
+    };
 
 
     /**
@@ -95,7 +95,7 @@ class WebRTC extends Component {
          * for now to get firefox to talk to chrome */
       );
 
-      console.log(peer_connection)
+      console.log(peer_connection);
       peers[peer_id] = peer_connection;
 
       peer_connection.onicecandidate = function(event) {
@@ -108,11 +108,10 @@ class WebRTC extends Component {
             }
           });
         }
-      }
+      };
 
       // ON ADD STREAM NOT WORKING
       peer_connection.onaddstream = function(event) {
-        console.log('ON ADDDDDD STTTTREEEAAAMMMM')
         var remote_media = USE_VIDEO ? document.createElement('video') : document.createElement('audio');
         remote_media.setAttribute('autoplay', 'autoplay');
         if (MUTE_AUDIO_BY_DEFAULT) {
@@ -123,13 +122,11 @@ class WebRTC extends Component {
         peer_media_elements[peer_id] = remote_media;
 
         var video = document.getElementsByClassName('videos');
-        console.log(video)
         video.appendChild(remote_media);
         attachMediaStream(remote_media, event.stream);
-      }
+      };
 
       /* Add our local stream */
-      console.log('LOCAL MEDIA STREAM: ', local_media_stream)
       setup_local_media(peer_connection.addStream, function () {
         console.log('Error adding stream!');
       });
@@ -183,7 +180,7 @@ class WebRTC extends Component {
       var stuff = peer.setRemoteDescription(desc,
         function() {
           console.log('setRemoteDescription succeeded');
-          if (remote_description.type == 'offer') {
+          if (remote_description.type === 'offer') {
             console.log('Creating answer');
             peer.createAnswer(
               function(local_description) {
@@ -253,63 +250,72 @@ class WebRTC extends Component {
 
 
 
-  /***********************/
-  /** Local media stuff **/
-  /***********************/
-  function setup_local_media(callback, errorback) {
-    if (local_media_stream != null) { /* ie, if we've already been initialized */
-      if (callback) callback();
-      return;
-    }
-    /* Ask user for permission to use the computers microphone and/or camera,
-     * attach it to an <audio> or <video> tag if they give us access. */
-    console.log('Requesting access to local audio / video inputs');
-
-
-    navigator.getUserMedia = (navigator.getUserMedia ||
-      navigator.webkitGetUserMedia ||
-      navigator.mozGetUserMedia ||
-      navigator.msGetUserMedia);
-
-    var attachMediaStream = function(element, stream) {
-      console.log('DEPRECATED, attachMediaStream will soon be removed.');
-      if (element !== undefined) {
-        element.srcObject = stream;
-      } else {
-        console.error('Element undefined!');
+    /***********************/
+    /** Local media stuff **/
+    /***********************/
+    const setup_local_media = function(callback, errorback) {
+      if (local_media_stream != null) { /* ie, if we've already been initialized */
+        if (callback) {
+          callback();
+        }
         return;
       }
+      /* Ask user for permission to use the computers microphone and/or camera,
+      * attach it to an <audio> or <video> tag if they give us access. */
+      console.log('Requesting access to local audio / video inputs');
+
+
+      navigator.getUserMedia = (navigator.getUserMedia ||
+        navigator.webkitGetUserMedia ||
+        navigator.mozGetUserMedia ||
+        navigator.msGetUserMedia
+      );
+
+      const attachMediaStream = function(element, stream) {
+        console.log('DEPRECATED, attachMediaStream will soon be removed.');
+        if (element !== undefined) {
+          element.srcObject = stream;
+        } else {
+          console.error('Element undefined!');
+          return;
+        }
+      };
+
+      console.log('Getting user media!...');
+      navigator.getUserMedia({
+        'audio': USE_AUDIO,
+        'video': USE_VIDEO
+      },
+      function(stream) { /* user accepted access to a/v */
+        console.log('Access granted to audio/video');
+
+        var local_media_stream = stream;
+        var local_media = USE_VIDEO ? document.createElement('video') : document.createElement('audio');
+
+        local_media.setAttribute('autoplay', 'autoplay');
+        local_media.setAttribute('muted', 'true'); /* always mute ourselves by default */
+        local_media.setAttribute('controls', '');
+        local_media.setAttribute('width', '50%');
+
+        var video = document.getElementsByClassName('videos');
+        video[0].appendChild(local_media);
+        attachMediaStream(local_media, stream);
+
+        if (callback) {
+          callback(stream);
+        }
+      },
+      function() { /* user denied access to a/v */
+        console.log('Access denied for audio/video');
+        alert('You chose not to provide access to the camera/microphone, demo will not work.');
+        if (errorback) {
+          errorback();
+        }
+      });
+
     };
 
-    console.log('Getting user media!...');
-    navigator.getUserMedia({
-      'audio': USE_AUDIO,
-      'video': USE_VIDEO
-    },
-    function(stream) { /* user accepted access to a/v */
-      console.log('Access granted to audio/video');
-      var local_media_stream = stream;
-      var local_media = USE_VIDEO ? document.createElement('video') : document.createElement('audio');
-      local_media.setAttribute('autoplay', 'autoplay');
-      local_media.setAttribute('muted', 'true'); /* always mute ourselves by default */
-      local_media.setAttribute('controls', '');
-      local_media.setAttribute('width', '50%');
-
-      var video = document.getElementsByClassName('videos');
-      video[0].appendChild(local_media);
-      attachMediaStream(local_media, stream);
-
-      if (callback) callback(stream);
-    },
-    function() { /* user denied access to a/v */
-      console.log('Access denied for audio/video');
-      alert('You chose not to provide access to the camera/microphone, demo will not work.');
-      if (errorback) errorback();
-    });
-
   }
-
-}
 
   render () {
     return (
