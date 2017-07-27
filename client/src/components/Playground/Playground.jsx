@@ -4,15 +4,11 @@ import CodeMirror from 'codemirror';
 import colorize from '../../../../node_modules/codemirror/addon/runmode/colorize.js';
 import activeLine from '../../../../node_modules/codemirror/addon/selection/active-line.js';
 import javascript from '../../../../node_modules/codemirror/mode/javascript/javascript.js';
+import _ from 'underscore';
 
 class Playground extends Component {
   constructor (props) {
     super(props);
-
-    this.state = {
-      otherClientCursor: undefined
-
-    };
 
     this.saveCodeSnippet = props.saveCodeSnippet;
     this.handleRunClick = props.handleRunClick;
@@ -20,6 +16,7 @@ class Playground extends Component {
   }
 
   componentDidMount () {
+    var otherClientCursor, storedCode;
     var textArea = document.getElementById('code');
     var defaultString = this.props.editorCode;
     var options = {
@@ -43,77 +40,68 @@ class Playground extends Component {
     var codeMirror = CodeMirror.fromTextArea(textArea, options);
     codeMirror.setSize('100%', '100%');
     codeMirror.execCommand('goDocEnd');
-    codeMirror.on('change', (cm, change) => {
-      cm.save();
-      var code = codeMirror.getValue();
-      this.props.socket.emit('changed_code', code);
-    });
 
-    var { line, ch } = codeMirror.getCursor();
-    this.setState({cursorLoc: {line, ch}});
+    var widget = document.createElement('span');
+    widget.classList.add('otherClient');
+
+    var storedCode = codeMirror.getValue();
+
+    codeMirror.on('keyup', (cm, change) => {
+      var code = codeMirror.getValue();
+      var { line, ch } = codeMirror.getCursor();
+      
+      if (storedCode !== code) {
+        storedCode = code;
+        cm.save();
+        this.props.socket.emit('changed_code', {code, cursor: {line, ch}});
+
+      }
+      console.log('key up handler complete!');
+
+    });
 
     codeMirror.on('cursorActivity', _ => {
-      var { line, ch } = codeMirror.getCursor();
+      // console.log('Own cursor moved...');
+      var { line, ch } = codeMirror.getCursor(); // own cursor loc
       this.props.socket.emit('cursor_moved', {line, ch});
     });
-    
 
-    this.props.socket.on('changed_code', (code) => {
-      if (codeMirror.getValue() !== code) {
-        codeMirror.setValue(code);
-      }
+    this.props.socket.on('changed_code', (details) => {
+      console.log('Recieved code changed event...');
+      var { code, cursor } = details;
+      var ownCursor = codeMirror.getCursor();
+      
+      codeMirror.setValue(code);
+      codeMirror.setCursor(ownCursor);
+      codeMirror.setBookmark(cursor, {
+        widget: widget
+      });
+
     });
 
     this.props.socket.on('cursor_moved', (cursorLoc) => {
-      // codeMirror.setCursor(cursorLoc); // set other cursor location
-      // console.log('Cursor movement recieved! Moving bookmark...');
-      // codeMirror.setBookmark(cursorLoc);
-      // console.log('Bookmarks:', codeMirror.getAllMarks());
-      // codeMirror.addWidget(cursorLoc);
-      console.log('Cursor location at:', JSON.stringify(cursorLoc));
-      // var cursor = this.state.otherClientCursor;
-
-      // if (cursor) {
-      //   cursor.clear();
-      // } 
+      // console.log('Other cursor moved!', 'Loc:', cursorLoc);
       var {line, ch} = cursorLoc;
-      var widget = document.createElement('span');
-      widget.classList.add('otherClient');
-      
-      
-      this.setState((prevState, props) => {
-        if (prevState.otherClientCursor) {
-          prevState.otherClientCursor.clear();
-        }
-        var otherCursor = codeMirror.setBookmark(cursorLoc, {
+      var cursor = {line, ch};
+      if (JSON.stringify(cursor) !== JSON.stringify(otherClientCursor)) {
+        codeMirror.setBookmark(cursorLoc, {
           widget: widget
         });
-        return {otherClientCursor: otherCursor};
-      });
+      }
       
-      // this.setState((prevState, props) => {
-      //   var otherCursor = codeMirror.markText({line: line, ch: ch + 1}, {line , ch: ch + 1}, {
-      //     className: 'otherClient',
-      //     atomic: true,
-      //     // startStyle: 'otherClient',
-      //   });
-      //   return {otherClientCursor: otherCursor};
-      // });
       
     });
     
   }
 
   emitClearEvent () {
-    console.log('Emitting clear event!');
     this.props.socket.emit('cleared_terminal');
   }
 
   render () {
-   
     return (
       <div className="playground">
-        <div className="buttons">
+         <div className="buttons"> 
           <button onClick={ _ => {
             this.handleRunClick();
           }} 
