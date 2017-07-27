@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Navbar from '../Routes/Navbar.jsx';
+import NavBar from '../Routes/NavBar.jsx';
 
 class Pricing extends React.Component {
   constructor(props) {

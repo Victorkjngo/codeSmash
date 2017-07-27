@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Navbar from '../Routes/Navbar.jsx';
+import NavBar from '../Routes/NavBar.jsx';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -9,6 +9,7 @@ class Dashboard extends React.Component {
   }
 
   render() {
+    console.log('Navbar:', Navbar);
     return (
       <div>
         <Navbar/>
