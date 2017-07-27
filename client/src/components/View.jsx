@@ -18,7 +18,7 @@ class View extends Component {
       socket: socket,
       editorCode: `function myScript() {\n\tconsole.log('Returning 100');\n\treturn 100;\n}\nconsole.log(myScript());\n`
     };
-    
+
     xTerm.loadAddon('fit');
     this.handleRunClick = this.handleRunClick.bind(this);
     this.handleClearClick = this.handleClearClick.bind(this);
@@ -38,37 +38,37 @@ class View extends Component {
       term.blur();
 
       this.state.socket.on('executed_code', (output) => {
-        console.log('Running code, badoop!');
+        // console.log('Running code, badoop!');
         this.writeTerminal(output);
       });
 
       this.state.socket.on('cleared_terminal', (output) => {
-        console.log('Clearing terminal, Commander!', output);
+        // console.log('Clearing terminal, Commander!', output);
         this.state.terminal.clear();
       });
-      
+
       this.state.socket.on('connect', () => {
-        console.log('Connected to socket. Id:', this.state.socket.id);
+        // console.log('Connected to socket. Id:', this.state.socket.id);
       });
 
       // Error handling
       this.state.socket.on('error', function (error) {
-        console.log('Error', error);
+        // console.log('Error', error);
       });
 
       this.state.socket.on('connect_error', (error) => {
-        console.log('Connection error:', error);
+        // console.log('Connection error:', error);
       });
 
     });
-    
+
   }
 
   handleClearClick () {
     this.state.terminal.clear();
   }
 
-    
+
   writeTerminal (output) {
     var {result, logs, error, longError} = output;
 
@@ -77,15 +77,15 @@ class View extends Component {
     } else {
       this.state.terminal.writeln(logs.join('\n'));
     }
-    
+
     if (error) {
       this.state.terminal.writeln(result); // when there's an error, result will become a error message
     }
 
   }
-  
+
   handleRunClick () {
-    
+
     let code = document.getElementById('code').value;
     var payload = {
       code: code
@@ -95,15 +95,15 @@ class View extends Component {
     payload = JSON.stringify(payload);
 
     var headers = new Headers({
-      'Content-Type': 'application/json' 
+      'Content-Type': 'application/json'
     });
-    
+
     var options = {
       method: 'POST',
       body: payload,
       headers: headers
     };
-    
+
     fetch('run', options)
       .then((res) => {
         res.text()
@@ -111,15 +111,15 @@ class View extends Component {
             output = JSON.parse(output);
             console.log('Response from server:', output, typeof output);
 
-            this.state.socket.emit('executed_code', output); 
+            this.state.socket.emit('executed_code', output);
             this.writeTerminal(output);
-            
+
           });
       })
       .catch(function(error) {
         console.error(error);
       });
-    
+
   }
 
   saveCodeSnippet() {
@@ -151,7 +151,7 @@ class View extends Component {
         }
       ]
     };
-    
+
     axios.post('/api/users', dummyData)
       .then(res => {
         console.log('Successful POST for User', res.data);
@@ -175,11 +175,11 @@ class View extends Component {
 
   render () {
     return (
-      <div className="view">
-        {/* <WebRTC />    */}
+      <div className='view'>
+        <WebRTC />
         <Navbar/>
         <Playground saveCodeSnippet={this.saveCodeSnippet} handleRunClick={this.handleRunClick} handleClearClick={this.handleClearClick} editorCode={this.state.editorCode} socket={this.state.socket}/>
-        <div className="Terminal" id="terminal"></div>        
+        <div className='Terminal' id='terminal'></div>
       </div>
     );
   }
