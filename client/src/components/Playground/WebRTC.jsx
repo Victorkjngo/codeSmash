@@ -295,14 +295,14 @@ class WebRTC extends Component {
         local_media.setAttribute('autoplay', 'autoplay');
         local_media.setAttribute('muted', 'true'); /* always mute ourselves by default */
         local_media.setAttribute('controls', '');
-        local_media.setAttribute('width', '50%');
+        local_media.setAttribute('width', '25%');
 
         var video = document.getElementsByClassName('videos');
         video[0].appendChild(local_media);
         attachMediaStream(local_media, stream);
 
         if (callback) {
-          callback(stream);
+          callback();
         }
       },
       function() { /* user denied access to a/v */
