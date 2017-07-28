@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import io from 'socket.io-client';
 
+
 class WebRTC extends Component {
   constructor (props) {
     super(props);
@@ -10,6 +11,7 @@ class WebRTC extends Component {
   componentDidMount () {
     /** CONFIG **/
     // var SIGNALING_SERVER = 'http://localhost';
+
     var USE_AUDIO = true;
     var USE_VIDEO = true;
     var DEFAULT_CHANNEL = 'some-global-channel-name';
@@ -135,7 +137,7 @@ class WebRTC extends Component {
           remote_media.setAttribute('muted', 'true');
         }
         remote_media.setAttribute('controls', '');
-        remote_media.setAttribute('width', '50%');
+        remote_media.setAttribute('width', '33%');
         peer_media_elements[peer_id] = remote_media;
 
         var video = document.getElementsByClassName('videos');
@@ -318,7 +320,7 @@ class WebRTC extends Component {
         local_media.setAttribute('autoplay', 'autoplay');
         local_media.setAttribute('muted', 'true'); /* always mute ourselves by default */
         local_media.setAttribute('controls', '');
-        local_media.setAttribute('width', '25%');
+        local_media.setAttribute('width', '33%');
 
         var video = document.getElementsByClassName('videos');
         video[0].appendChild(local_media);
