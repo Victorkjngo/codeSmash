@@ -1,9 +1,43 @@
-/* TAGS */
+/* Extend bootstrap */
+html, body{
+  height:100%;
+  margin:0;padding:0
+}
+
+.container-fluid{
+  height:100%;
+  display: table;
+  width: 100%;
+  padding: 0;
+}
+
+.container, .container-fluid {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.row-fluid {
+  height: 100%;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.centering {
+  float:none;
+  margin:0 auto;
+}
+
 body, html {
   height: 100%;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
 
+#root > * {
+  height: 100%;
+}
 
 .navbar {
   border-radius: 0;
@@ -38,6 +72,58 @@ body, html {
   width: 100%;
 }
 
+/* Landing page */
+.home, .options-and-info, .main-page {
+  width: 100%;
+  height: 100%;
+}
+
+.main-page {
+  min-height: 1000px;
+  color: #fff;
+  background: #30353e;
+}
+
+.home {
+  background-color: green;
+}
+
+.options-and-info {
+  background-color: grey;
+}
+
+.options-display {
+  padding: 0 auto;
+}
+
+.center {
+  text-align: center;
+  width: 100%;
+}
+
+.grid-center {
+  margin: 0 auto;
+}
+
+.footer {
+  height: 40px;
+  background: #30353e;
+}
+
+.row-centered {
+  text-align: center;
+}
+
+.white-text {
+  color: white;
+}
+
+.option {
+  background: #30353e;
+  width: 200px;
+  height: 300px;
+  border-radius: 25%;
+}
 /* Style CodeMirror here!*/
 .otherClient {
   border-left: 3px solid steelblue;
