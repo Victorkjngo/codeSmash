@@ -25,7 +25,7 @@ const routes = [
 module.exports = (
   <BrowserRouter history={ browserHistory }>
     <Switch>
-      <Route exact path={'/'} component={View}></Route>
+      <Route exact path={'/'} component={Home}></Route>
       <Route path={'/home'} component={Home}></Route>
       <Route path={'/dashboard'} component={Dashboard}></Route>
       <Route path={'/pricing'} component={Pricing}></Route>
