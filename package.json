@@ -50,6 +50,7 @@
     "simplewebrtc": "^3.0.1",
     "socket.io": "^2.0.3",
     "underscore": "^1.8.3",
+    "webrtc-adapter": "^4.2.1",
     "xterm": "^2.8.1"
   },
   "devDependencies": {

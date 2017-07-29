@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import io from 'socket.io-client';
 
+
 class WebRTC extends Component {
   constructor (props) {
     super(props);
@@ -9,7 +10,8 @@ class WebRTC extends Component {
 
   componentDidMount () {
     /** CONFIG **/
-    var SIGNALING_SERVER = 'http://localhost';
+    // var SIGNALING_SERVER = 'http://localhost';
+
     var USE_AUDIO = true;
     var USE_VIDEO = true;
     var DEFAULT_CHANNEL = 'some-global-channel-name';
@@ -17,21 +19,36 @@ class WebRTC extends Component {
 
     /** You should probably use a different stun server doing commercial stuff **/
     /** Also see: https://gist.github.com/zziuni/3741933 **/
-    var ICE_SERVERS = [{
-      url: 'stun:stun.l.google.com:19302'
-    }];
+    var ICE_SERVERS = [
+      { url: 'stun:global.stun.twilio.com:3478?transport=udp' },
+      {
+        url: 'turn:global.turn.twilio.com:3478?transport=udp',
+        username: '7823fd6b34baece7e291276e43969bc5d8a7ce41ad78ba86b9ca8b7f9a7b2e13',
+        credential: 'Yc5kCs9eC5JOeps4mbmURNmUVjWdJof9N3MItd51zx8='
+      },
+      {
+        url: 'turn:global.turn.twilio.com:3478?transport=tcp',
+        username: '7823fd6b34baece7e291276e43969bc5d8a7ce41ad78ba86b9ca8b7f9a7b2e13',
+        credential: 'Yc5kCs9eC5JOeps4mbmURNmUVjWdJof9N3MItd51zx8='
+      },
+      {
+        url: 'turn:global.turn.twilio.com:443?transport=tcp',
+        username: '7823fd6b34baece7e291276e43969bc5d8a7ce41ad78ba86b9ca8b7f9a7b2e13',
+        credential: 'Yc5kCs9eC5JOeps4mbmURNmUVjWdJof9N3MItd51zx8='
+      }
+    ];
 
     var signaling_socket = null; /* our socket.io connection to our webserver */
     var local_media_stream = null; /* our own microphone / webcam */
     var peers = {}; /* keep track of our peer connections, indexed by peer_id (aka socket.io id) */
     var peer_media_elements = {}; /* keep track of our <video>/<audio> tags, indexed by peer_id */
 
-    console.log('Connecting to signaling server');
-    signaling_socket = io(SIGNALING_SERVER);
+    console.log('1. Connecting to signaling server');
+    // signaling_socket = io(SIGNALING_SERVER);
     signaling_socket = io();
 
     signaling_socket.on('connect', function() {
-      console.log('Connected to signaling server');
+      console.log('2. Connected to signaling server');
       setup_local_media(function() {
         /* once the user has given us access to their
          * microphone/camcorder, join the channel and start peering up */
@@ -74,11 +91,11 @@ class WebRTC extends Component {
      * connections in the network).
      */
     signaling_socket.on('addPeer', function(config) {
-      console.log('Signaling server said to add peer:', config);
+      console.log('addPeer 1: Signaling server said to add peer:', config);
       var peer_id = config.peer_id;
       if (peer_id in peers) {
         /* This could happen if the user joins multiple channels where the other peer is also in. */
-        console.log('Already connected to peer ', peer_id);
+        console.log('addPeer 1: Already connected to peer ', peer_id);
         return;
       }
 
@@ -95,10 +112,11 @@ class WebRTC extends Component {
          * for now to get firefox to talk to chrome */
       );
 
-      console.log(peer_connection);
+
       peers[peer_id] = peer_connection;
 
       peer_connection.onicecandidate = function(event) {
+        console.log('addPeer: onicecandidate WORKING!');
         if (event.candidate) {
           signaling_socket.emit('relayICECandidate', {
             'peer_id': peer_id,
@@ -112,26 +130,28 @@ class WebRTC extends Component {
 
       // ON ADD STREAM NOT WORKING
       peer_connection.onaddstream = function(event) {
+        console.log('addPeer: onaddstream WORKING!');
         var remote_media = USE_VIDEO ? document.createElement('video') : document.createElement('audio');
         remote_media.setAttribute('autoplay', 'autoplay');
         if (MUTE_AUDIO_BY_DEFAULT) {
           remote_media.setAttribute('muted', 'true');
         }
-        remote_media.setAttribute('controls', '');
-        remote_media.setAttribute('width', '50%');
+        remote_media.setAttribute('height', '199px');
         peer_media_elements[peer_id] = remote_media;
 
         var video = document.getElementsByClassName('videos');
-        video.appendChild(remote_media);
+        video[0].appendChild(remote_media);
+        // console.log(remote_media)
         attachMediaStream(remote_media, event.stream);
       };
 
       /* Add our local stream */
-      setup_local_media(peer_connection.addStream, function () {
-        console.log('Error adding stream!');
-      });
+      // setup_local_media(() => signaling_socket.emit('join', {channel: DEFAULT_CHANNEL, userdata:'something'}), function () { // SOURCE OF ERROR?
+      //   console.log('addPeer: Error adding stream!');
+      // });
 
-      // peer_connection.addStream(local_media_stream);
+
+      peer_connection.addStream(local_media_stream);
 
       /* Only one side of the peer connection should create the
        * offer, the signaling server picks one to be the offerer.
@@ -177,14 +197,14 @@ class WebRTC extends Component {
       console.log(config.session_description);
 
       var desc = new RTCSessionDescription(remote_description);
-      var stuff = peer.setRemoteDescription(desc,
+      peer.setRemoteDescription(desc,
         function() {
-          console.log('setRemoteDescription succeeded');
+          console.log('sessionDescription 1: setRemoteDescription succeeded');
           if (remote_description.type === 'offer') {
             console.log('Creating answer');
             peer.createAnswer(
               function(local_description) {
-                console.log('Answer description is: ', local_description);
+                console.log('sessionDescription2: Answer description is: ', local_description);
                 peer.setLocalDescription(local_description,
                   function() {
                     signaling_socket.emit('relaySessionDescription', {
@@ -253,6 +273,19 @@ class WebRTC extends Component {
     /***********************/
     /** Local media stuff **/
     /***********************/
+    function attachMediaStream (element, stream) {
+      if (element === undefined) {
+        debugger;
+      }
+      console.log('Warning: attachMediaStream is Depricated and will soon be removed.');
+      if (element !== undefined) {
+        element.srcObject = stream;
+      } else {
+        console.error('Element undefined!');
+        return;
+      }
+    };
+
     const setup_local_media = function(callback, errorback) {
       if (local_media_stream != null) { /* ie, if we've already been initialized */
         if (callback) {
@@ -262,7 +295,7 @@ class WebRTC extends Component {
       }
       /* Ask user for permission to use the computers microphone and/or camera,
       * attach it to an <audio> or <video> tag if they give us access. */
-      console.log('Requesting access to local audio / video inputs');
+      console.log('3. Requesting access to local audio / video inputs');
 
 
       navigator.getUserMedia = (navigator.getUserMedia ||
@@ -271,38 +304,28 @@ class WebRTC extends Component {
         navigator.msGetUserMedia
       );
 
-      const attachMediaStream = function(element, stream) {
-        console.log('DEPRECATED, attachMediaStream will soon be removed.');
-        if (element !== undefined) {
-          element.srcObject = stream;
-        } else {
-          console.error('Element undefined!');
-          return;
-        }
-      };
 
-      console.log('Getting user media!...');
+      console.log('4. Getting user media!...');
       navigator.getUserMedia({
         'audio': USE_AUDIO,
         'video': USE_VIDEO
       },
       function(stream) { /* user accepted access to a/v */
-        console.log('Access granted to audio/video');
+        console.log('5. Access granted to audio/video');
 
-        var local_media_stream = stream;
+        local_media_stream = stream;
         var local_media = USE_VIDEO ? document.createElement('video') : document.createElement('audio');
 
         local_media.setAttribute('autoplay', 'autoplay');
         local_media.setAttribute('muted', 'true'); /* always mute ourselves by default */
-        local_media.setAttribute('controls', '');
-        local_media.setAttribute('width', '25%');
+        local_media.setAttribute('height', '199px');
 
         var video = document.getElementsByClassName('videos');
         video[0].appendChild(local_media);
         attachMediaStream(local_media, stream);
 
         if (callback) {
-          callback();
+          callback(local_media_stream);
         }
       },
       function() { /* user denied access to a/v */
@@ -319,10 +342,36 @@ class WebRTC extends Component {
 
   render () {
     return (
-      <div className='videos'></div>
+      <div className="container-fluid center row" id='video-bar'>
+        <div className="col-sm-1">
+          <div className="btn-group-vertical" role="group">
+
+            <button type="button" className="btn btn-default glyphicon glyphicon-facetime-video" aria-label="Left Align" aria-hidden="true">
+            </button>
+
+            <button type="button" className="btn btn-default glyphicon glyphicon-headphones" aria-label="Left Align" aria-hidden="true">
+            </button>
+
+
+
+          </div>
+        </div>
+        <div className='col-sm-10 videos'></div>
+        <div className="col-sm-1"></div>
+      </div>
     );
   }
 }
+
+// audio input ICONS: ON: fa fa-volume-up OFF: fa fa-volume-off
+// audio output ICONS: ON: fa fa-microphone OFF: fa fa-microphone-slash
+// video input
+// camera output
+
+//video:       glyphicon glyphicon-facetime-video
+//headphones:  glyphicon glyphicon-headphones
+//sound:       glyphicon glyphicon-volume-off
+
 
 
 export default WebRTC;

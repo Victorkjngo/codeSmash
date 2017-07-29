@@ -115,7 +115,10 @@ io.on('connection', function(socket) {
     var session_description = config.session_description;
     console.log('[' + socket.id + '] relaying session description to [' + peer_id + ']', session_description);
 
+    Object.keys(sockets).forEach(socket => console.log(sockets[socket].id));
+
     if (peer_id in sockets) {
+      console.log(`EMITTING SESSIONDESCRIPTION TO ${peer_id}`);
       sockets[peer_id].emit('sessionDescription', { 'peer_id': socket.id, 'session_description': session_description });
     }
   });

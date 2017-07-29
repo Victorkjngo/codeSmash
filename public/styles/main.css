@@ -1,3 +1,4 @@
+  /* TAGS */
 /* Extend bootstrap */
 html, body{
   height:100%;
@@ -25,10 +26,6 @@ html, body{
 .centering {
   float:none;
   margin:0 auto;
-}
-
-body, html {
-  height: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
