@@ -1,0 +1,11 @@
+#video-bar {
+  background-color:#A9A9A9;
+  color:#222222;
+  height:202px;
+  text-align: center;
+  vertical-align: 'align-middle';
+}
+
+.videos {
+  height: 25%;
+}

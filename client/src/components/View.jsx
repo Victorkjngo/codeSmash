@@ -176,8 +176,8 @@ class View extends Component {
   render () {
     return (
       <div className='view'>
-        <WebRTC />
         <Navbar/>
+        <WebRTC />
         <Playground saveCodeSnippet={this.saveCodeSnippet} handleRunClick={this.handleRunClick} handleClearClick={this.handleClearClick} editorCode={this.state.editorCode} socket={this.state.socket}/>
         <div className='Terminal' id='terminal'></div>
       </div>

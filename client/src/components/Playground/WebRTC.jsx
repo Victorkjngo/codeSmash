@@ -136,8 +136,7 @@ class WebRTC extends Component {
         if (MUTE_AUDIO_BY_DEFAULT) {
           remote_media.setAttribute('muted', 'true');
         }
-        remote_media.setAttribute('controls', '');
-        remote_media.setAttribute('width', '33%');
+        remote_media.setAttribute('height', '199px');
         peer_media_elements[peer_id] = remote_media;
 
         var video = document.getElementsByClassName('videos');
@@ -319,8 +318,7 @@ class WebRTC extends Component {
 
         local_media.setAttribute('autoplay', 'autoplay');
         local_media.setAttribute('muted', 'true'); /* always mute ourselves by default */
-        local_media.setAttribute('controls', '');
-        local_media.setAttribute('width', '33%');
+        local_media.setAttribute('height', '199px');
 
         var video = document.getElementsByClassName('videos');
         video[0].appendChild(local_media);
@@ -344,10 +342,36 @@ class WebRTC extends Component {
 
   render () {
     return (
-      <div className='videos'></div>
+      <div className="container-fluid center row" id='video-bar'>
+        <div className="col-sm-1">
+          <div className="btn-group-vertical" role="group">
+
+            <button type="button" className="btn btn-default glyphicon glyphicon-facetime-video" aria-label="Left Align" aria-hidden="true">
+            </button>
+
+            <button type="button" className="btn btn-default glyphicon glyphicon-headphones" aria-label="Left Align" aria-hidden="true">
+            </button>
+
+
+
+          </div>
+        </div>
+        <div className='col-sm-10 videos'></div>
+        <div className="col-sm-1"></div>
+      </div>
     );
   }
 }
+
+// audio input ICONS: ON: fa fa-volume-up OFF: fa fa-volume-off
+// audio output ICONS: ON: fa fa-microphone OFF: fa fa-microphone-slash
+// video input
+// camera output
+
+//video:       glyphicon glyphicon-facetime-video
+//headphones:  glyphicon glyphicon-headphones
+//sound:       glyphicon glyphicon-volume-off
+
 
 
 export default WebRTC;
