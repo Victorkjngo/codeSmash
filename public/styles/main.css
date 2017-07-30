@@ -28,6 +28,12 @@ html, body{
   margin:0 auto;
 }
 
+body, html {
+  height: 100%;
+}
+
+/* Normalization */ 
+
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
@@ -36,6 +42,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 100%;
 }
 
+/* Nav bar */
 .navbar {
   border-radius: 0;
   margin-bottom: 0;
@@ -50,6 +57,8 @@ h1, h2, h3, h4, h5, h6 {
   height: 100%;
   padding: 0;
 }
+
+/* Playground */
 
 .playground {
   margin: 0;
@@ -69,59 +78,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 
-/* Landing page */
-.home, .options-and-info, .main-page {
-  width: 100%;
-  height: 100%;
-}
-
-.main-page {
-  min-height: 1000px;
-  color: #fff;
-  background: #30353e;
-}
-
-.home {
-  background-color: green;
-}
-
-.options-and-info {
-  background-color: grey;
-}
-
-.options-display {
-  padding: 0 auto;
-}
-
-.center {
-  text-align: center;
-  width: 100%;
-}
-
-.grid-center {
-  margin: 0 auto;
-}
-
-.footer {
-  height: 40px;
-  background: #30353e;
-}
-
-.row-centered {
-  text-align: center;
-}
-
-.white-text {
-  color: white;
-}
-
-.option {
-  background: #30353e;
-  width: 200px;
-  height: 300px;
-  border-radius: 25%;
-}
-/* Style CodeMirror here!*/
+/* CodeMirror */
 .otherClient {
   border-left: 3px solid steelblue;
   border-right: 3px solid red;
@@ -145,9 +102,79 @@ h1, h2, h3, h4, h5, h6 {
   bottom: 0;
 }
 
+/* LANDING PAGE */
+.home, .options-and-info, .main-page {
+  width: 100%;
+  height: 100%;
+}
 
+.main-page {
+   min-height: 1000px; 
+  /* color: #fff;
+  background: #30353e; */
+  background: white;
+}
 
+/* Center piece */
+.center-piece {
+   margin-top: 4em; 
+}
 
+.title {
+  font-size: 3em;
+}
+
+.slogan {
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+.home {
+  background-color: green;
+}
+
+.options-and-info {
+  background-color: grey;
+}
+
+.options-display {
+  /* margin: auto; */
+}
+
+.center {
+  text-align: center;
+  width: 100%;
+}
+
+.grid-center {
+  margin: 0 auto;
+}
+
+.footer {
+  color: white;
+  height: 100px;
+  background: #30353e;
+}
+
+.row-centered {
+  text-align: center;
+}
+
+.white-text {
+  color: white;
+}
+
+.option {
+  background: #30353e;
+  height: 100vh;
+  border-radius: 25%;
+}
+
+/* Generic Classes */
+.vcenter {
+  padding: auto 0;
+  height: 100%;
+}
 
 /* Collapsing Navbar for Mobile */
 @media (max-width: 500px) {

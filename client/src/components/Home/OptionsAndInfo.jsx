@@ -8,18 +8,13 @@ class OptionsAndInfo extends Component {
 
   render() {
     return (
-      <div className='options-and-info container-fluid'>
-        <div className="text-center row-centered center row white-text grid-center options-display">
-          <div className="col-md-4 option">
-            One
-          </div>
-          <div className="col-md-4 option">
-            Two
-          </div>
-          <div className="col-md-4 option">
-            Three
-          </div>
-        </div>
+      <div className='options-and-info container'>
+        {/* 
+          One row of three divs side by side
+            Each 1 div with icon
+            And 1 topic name (topic)
+            And 1 paragraph (slogan)
+        */}
       </div>
     );
   }

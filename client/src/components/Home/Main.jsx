@@ -10,12 +10,12 @@ class Main extends Component {
   render() {
     return (
       <div className="main-page">
-        <NavBar/>
-        <div className="center container-fluid">
-          <div className="row-fluid">
-            <h1>CodeSmash helps you interview your candidates in an <br/>intuitive live programming environment</h1> 
-            <p>Smash smash smashSmash smash smashSmash smash smashSmash smash smashSmash smash smashSmash smash smashSmash smash smashSmash smash smash</p>
-            <button className="btn btn-danger">SMASH IT!</button>
+        <NavBar hideCodeNow="true" />
+        <div className="container-fluid">
+          <div className="row center-piece text-center">
+            <h1 className="title">CodeSmash</h1> 
+            <p className="slogan">Coding interviews made simple</p>
+            <button className="btn btn-danger">Start</button>
           </div>
         </div>
       </div>
