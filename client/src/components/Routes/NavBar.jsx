@@ -12,9 +12,10 @@ module.exports = ({hideCodeNow}) => (
           <span className='icon-bar'></span>
         </button>
         <Link to='/home'><a className='navbar-brand'>CodeSmash</a></Link>
+      <Link to='/view'><button className='btn btn-danger navbar-btn'>Code Now</button></Link>
       </div>
       <div className='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>
-        {Boolean(!hideCodeNow) ? <Link to='/view'><button className='btn btn-danger navbar-btn'>Code Now</button></Link> : '' }
+
         <ul className='nav navbar-nav navbar-right'>
           <li><Link to='/home'>Home</Link></li>
           <li><Link to='/dashboard'>Dashboard</Link></li>
@@ -52,5 +53,6 @@ module.exports = ({hideCodeNow}) => (
       <li><Link to='/pricing'>Pricing</Link></li>
     </ul>
   </div>
-</nav> */}
+</nav> */
+}
 

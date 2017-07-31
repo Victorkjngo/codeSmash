@@ -38,7 +38,7 @@ body, html {
   height: 100%;
 }
 
-/* Normalization */ 
+/* Normalization */
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
@@ -121,7 +121,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Center piece */
 .center-piece {
-   margin-top: 4em; 
+   margin-top: 4em;
    margin-bottom: 40px;
    font-size: 3em;
 }
@@ -220,7 +220,7 @@ footer {
   }
 }
 
-@media (max-width: 992px) {
+@media (max-width: 500px) {
     .attention-grabber {
       width: 100%;
       max-width: none;
