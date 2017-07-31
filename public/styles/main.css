@@ -7,6 +7,10 @@ html, body{
   padding: 0;
 }
 
+html {
+  /* background: darkblue; */
+}
+
 .container-fluid{
   height:100%;
   display: table;
@@ -128,17 +132,19 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Attention grabber */
 .attention-grabber {
-  background-color: green;
+  /* background-color: green; */
+  max-width: 1000px;
   width: 100%;
-  height: 500px;
-  margin: 40px 0;
+  height: 100%;
+  margin: 0 auto;
 }
 
-.thing {
-  background-color: orange;
-  width: 500px;
+.carousel, .attention-grabber > div {
   height: 100%;
-  display: inline-block;
+}
+
+.slide img {
+  height: 100%;
 }
 
 .title {
@@ -147,10 +153,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .slogan {
   margin-top: 0.25em;
+  line-height: 0.98em;
 }
 
 .home {
-  background-color: yellow;
+  /* background-color: yellow; */
 }
 
 .options-and-info {
@@ -170,12 +177,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 footer {
+  font-size: 2em;
   color: white;
   height: 25%;
   max-height: 14.68em;
   width: 100%;
   background: #30353e;
-  position: absolute;
   bottom: 0;
   left: 0;
 }
@@ -214,6 +221,11 @@ footer {
 }
 
 @media (max-width: 992px) {
+    .attention-grabber {
+      width: 100%;
+      max-width: none;
+    }
+
     .navbar-header {
         float: none;
     }

@@ -10,7 +10,7 @@ class AttentionGrabber extends Component {
   render() {
     return (
       <section className="attention-grabber">
-        <Carousel axis="horizontal" dynamicHeight emulateTouch infiniteLoop autoPlay>
+        <Carousel axis="horizontal" stopOnHover={false} useKeyboardArrows={true} showArrows={false} showThumbs={false} dynamicHeight={true} emulateTouch infiniteLoop autoPlay>
           <div>
             <img src="http://www.funnycatpix.com/_pics/Taking_A_Short_Ride.jpg" />
             <p className="legend">Legend 1</p>

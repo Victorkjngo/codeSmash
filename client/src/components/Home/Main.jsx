@@ -13,7 +13,6 @@ class Main extends Component {
       <section className="main-page">
         <NavBar />
         <MastHead />
-        
       </section>
     );
   }

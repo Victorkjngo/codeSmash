@@ -1,13 +1,12 @@
 # Project Name
 
-The project description
+Real-time collaborative coding app with voice communication with interview tools
 
 ## Team
 
-- teamMember
-- teamMember
-- teamMember
-- teamMember
+- Matt Reyes
+- Jun Park
+- Victor Ngo
 
 ## Roadmap
 
@@ -28,6 +27,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 ## Usage
 
 > Some usage instructions
+```
+yarn
+```
 
 ## Requirements
 
