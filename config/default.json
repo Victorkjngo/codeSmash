@@ -20,10 +20,12 @@
       "directory": "db/seeds"
     }
   },
-
   "passport": {
-    "Google": {},
-    "Facebook": {},
-    "Twitter": {}
+    "Google": {
+      "clientID": "773253813501-0ncai7r95mujlptdt14g7l32cb0ae2pb.apps.googleusercontent.com",
+      "clientSecret": "_qC5j1o2U4ywSjkM8cT1SeHe",
+      "apiKey": "AIzaSyCIqwsbB5Rj5eJc2iV8OXkYvKo_aswtbQc",
+      "callbackURL": "http://localhost:3000/auth/google/callback"
+    }
   }
 }
