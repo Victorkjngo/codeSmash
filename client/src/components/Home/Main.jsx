@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NavBar from '../Routes/NavBar.jsx';
+import MastHead from './MastHead.jsx';
 
 class Main extends Component {
   constructor(props) {
@@ -9,16 +10,11 @@ class Main extends Component {
 
   render() {
     return (
-      <div className="main-page">
-        <NavBar hideCodeNow="true" />
-        <div className="container-fluid">
-          <div className="row center-piece text-center">
-            <h1 className="title">CodeSmash</h1> 
-            <p className="slogan">Coding interviews made simple</p>
-            <button className="btn btn-danger">Start</button>
-          </div>
-        </div>
-      </div>
+      <section className="main-page">
+        <NavBar />
+        <MastHead />
+        
+      </section>
     );
   }
 }

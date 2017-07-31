@@ -8,10 +8,8 @@ class Footer extends Component {
 
   render() {
     return (
-      <div className='footer container-fluid'>
-        <div className='row-fluid'>
-        </div>
-      </div>
+      <footer>
+      </footer>
     );
   }
 }
