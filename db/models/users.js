@@ -29,7 +29,9 @@ var userSchema = new Schema(
             'time': String,
             'code_snippet': String
           }
-        ]
+        ],
+        'notes': String,
+        'email': String
       }
     ]
   }
