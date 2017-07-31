@@ -9,10 +9,9 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    console.log('Navbar:', Navbar);
     return (
       <div>
-        <Navbar/>
+        <NavBar/>
         <h1>
           Dashboard!
         </h1>

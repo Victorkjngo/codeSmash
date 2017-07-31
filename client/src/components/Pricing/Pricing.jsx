@@ -10,7 +10,7 @@ class Pricing extends React.Component {
   render() {
     return (
       <div>
-        <Navbar/>
+        <NavBar/>
         <h1>
           Pricing!
         </h1>

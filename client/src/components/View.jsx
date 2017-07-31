@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Playground, Terminal, WebRTC } from './Playground/index.jsx';
+import { Playground, Terminal, WebRTC } from './Playground/index.jsx'; // Terminal is not exported from index.jsx
 import Navbar from './Routes/NavBar.jsx';
 import xTerm from 'xterm';
 import io from 'socket.io-client';
