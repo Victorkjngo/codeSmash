@@ -136,15 +136,24 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 1000px;
   width: 100%;
   margin: 0 auto;
+  margin-bottom: 2.5em;
 }
 
 .carousel, .attention-grabber > div {
   height: 100%;
 }
 
-.slide img {
+/* Carousel */
+.carousel {
+
+}
+
+.carousel .slide img {
+  width: auto;
+  max-height: 100vh;
   height: 100%;
 }
+
 
 .title {
   font-size: 3em;
@@ -178,7 +187,6 @@ h1, h2, h3, h4, h5, h6 {
 footer {
   font-size: 2em;
   color: white;
-  height: 25%;
   max-height: 14.68em;
   width: 100%;
   background: #30353e;
