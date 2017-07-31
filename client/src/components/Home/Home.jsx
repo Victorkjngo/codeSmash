@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 import Main from './Main.jsx';
-import OptionsAndInfo from './OptionsAndInfo.jsx';
+import AttentionGrabber from './AttentionGrabber.jsx';
 import Footer from './Footer.jsx';
 
 class Home extends Component {
@@ -15,8 +15,9 @@ class Home extends Component {
     return (
       <div className="home">
         <Main />
-        <OptionsAndInfo />
+        <AttentionGrabber />
         <Footer />
+        
       </div>
     );
   }

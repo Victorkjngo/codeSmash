@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
 
-module.exports = () => (
+module.exports = ({hideCodeNow}) => (
   <nav className='navbar navbar-inverse' role='navigation'>
     <div className='container-fluid'>
       <div className='navbar-header'>
@@ -14,7 +14,7 @@ module.exports = () => (
         <Link to='/home'><a className='navbar-brand'>CodeSmash</a></Link>
       </div>
       <div className='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>
-        <Link to='/'><button className='btn btn-danger navbar-btn'>Code Now</button></Link>
+        {Boolean(!hideCodeNow) ? <Link to='/view'><button className='btn btn-danger navbar-btn'>Code Now</button></Link> : '' }
         <ul className='nav navbar-nav navbar-right'>
           <li><Link to='/home'>Home</Link></li>
           <li><Link to='/dashboard'>Dashboard</Link></li>
