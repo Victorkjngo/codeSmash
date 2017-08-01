@@ -133,9 +133,9 @@ class View extends Component {
   }
 
   injectQuestion (question) {
-    console.log('Injecting this question:', question);
     this.state.codeMirror.setValue(question);
     this.state.codeMirror.execCommand('goDocEnd');
+    this.state.codeMirror.save();
   }
 
   saveCodeSnippet() {
