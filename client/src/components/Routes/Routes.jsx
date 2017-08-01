@@ -5,6 +5,7 @@ import View from '../View.jsx';
 import Home from '../Home/Home.jsx';
 import Dashboard from '../Dashboard/Dashboard.jsx';
 import Pricing from '../Pricing/Pricing.jsx';
+import Login from '../Authentication/Login.jsx';
 
 const routes = [
   { path: '/',
@@ -19,6 +20,10 @@ const routes = [
   },
   { path: '/pricing',
     component: Pricing,
+  },
+  {
+    path: '/login',
+    component: Login
   }
 ];
 
@@ -29,6 +34,7 @@ module.exports = (
       <Route exact path={'/view'} component={View}></Route>
       <Route path={'/home'} component={Home}></Route>
       <Route path={'/dashboard'} component={Dashboard}></Route>
+      <Route path={'/login'} component={Login}></Route>
       <Route path={'/pricing'} component={Pricing}></Route>
     </Switch>
   </BrowserRouter>

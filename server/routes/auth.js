@@ -5,6 +5,7 @@ const exec = require('child_process').exec;
 const path = require('path');
 const Sandbox = require('sandbox');
 
+
 const router = express.Router();
 
 var sandbox = new Sandbox();
@@ -14,10 +15,10 @@ router.route('/')
   .get((req, res) => {
     console.log('/ route accessed!', 'rendering it to user?');
     res.render('index.ejs');
+  })
+  .get(middleware.auth.verify, (req, res) => {
+    res.render('index.ejs');
   });
-  // .get(middleware.auth.verify, (req, res) => {
-  //   res.render('index.ejs');
-  // });
 
 console.log('Router dealing with /run endpoint...');
 router.route('/run')
@@ -74,10 +75,10 @@ router.route('/run')
 
 router.route('/login')
   .get((req, res) => {
-    res.render('login.ejs', { message: req.flash('loginMessage') });
+    res.render('index.ejs');
   })
   .post(middleware.passport.authenticate('local-login', {
-    successRedirect: '/profile',
+    successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true
   }));
@@ -87,7 +88,7 @@ router.route('/signup')
     res.render('signup.ejs', { message: req.flash('signupMessage') });
   })
   .post(middleware.passport.authenticate('local-signup', {
-    successRedirect: '/profile',
+    successRedirect: '/',
     failureRedirect: '/signup',
     failureFlash: true
   }));
@@ -110,25 +111,9 @@ router.get('/auth/google', middleware.passport.authenticate('google', {
 }));
 
 router.get('/auth/google/callback', middleware.passport.authenticate('google', {
-  successRedirect: '/profile',
+  successRedirect: '/',
   failureRedirect: '/login'
 }));
 
-router.get('/auth/facebook', middleware.passport.authenticate('facebook', {
-  scope: ['public_profile', 'email']
-}));
-
-router.get('/auth/facebook/callback', middleware.passport.authenticate('facebook', {
-  successRedirect: '/profile',
-  failureRedirect: '/login',
-  failureFlash: true
-}));
-
-router.get('/auth/twitter', middleware.passport.authenticate('twitter'));
-
-router.get('/auth/twitter/callback', middleware.passport.authenticate('twitter', {
-  successRedirect: '/profile',
-  failureRedirect: '/login'
-}));
 
 module.exports = router;

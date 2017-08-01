@@ -18,6 +18,7 @@ module.exports = ({hideCodeNow}) => (
 
         <ul className='nav navbar-nav navbar-right'>
           <li><Link to='/home'>Home</Link></li>
+          <li><Link to='/login'>Login</Link></li>
           <li><Link to='/dashboard'>Dashboard</Link></li>
           <li><Link to='/pricing'>Pricing</Link></li>
         </ul>

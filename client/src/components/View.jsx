@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Playground, Terminal, WebRTC } from './Playground/index.jsx'; // Terminal is not exported from index.jsx
+import { Playground, Terminal, WebRTC, IntervieweeModal } from './Playground/index.jsx';
 import Navbar from './Routes/NavBar.jsx';
 import xTerm from 'xterm';
 import io from 'socket.io-client';
@@ -16,7 +16,8 @@ class View extends Component {
     this.state = {
       terminal: undefined,
       socket: socket,
-      editorCode: `function myScript() {\n\tconsole.log('Returning 100');\n\treturn 100;\n}\nconsole.log(myScript());\n`
+      editorCode: `function myScript() {\n\tconsole.log('Returning 100');\n\treturn 100;\n}\nconsole.log(myScript());\n`,
+      interviewee: null
     };
 
     xTerm.loadAddon('fit');
@@ -61,6 +62,8 @@ class View extends Component {
       });
 
     });
+
+
 
   }
 
@@ -180,6 +183,7 @@ class View extends Component {
         <WebRTC />
         <Playground saveCodeSnippet={this.saveCodeSnippet} handleRunClick={this.handleRunClick} handleClearClick={this.handleClearClick} editorCode={this.state.editorCode} socket={this.state.socket}/>
         <div className='Terminal' id='terminal'></div>
+        <IntervieweeModal/>
       </div>
     );
   }

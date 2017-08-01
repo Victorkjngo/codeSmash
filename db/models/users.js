@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema(
@@ -6,6 +7,7 @@ var userSchema = new Schema(
     'id': String,
     'email': String,
     'hash': String,
+    'oauth_id': String,
     'image_url': String,
     'url': String,
     'first_name': String,
@@ -44,6 +46,16 @@ var selectAll = (callback) => {
     }
   });
 };
+
+var select = (callback) => {
+  Users.find(callback, (err, users) => {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, users)
+    }
+  })
+}
 
 module.exports = Users;
 module.exports.selectAll = selectAll;
