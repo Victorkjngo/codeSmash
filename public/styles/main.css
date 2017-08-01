@@ -184,7 +184,9 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0 auto;
 }
 
+/* Footer */
 footer {
+  padding: 3.125em 1.5625em;
   font-size: 2em;
   color: white;
   max-height: 14.68em;
@@ -194,6 +196,10 @@ footer {
   left: 0;
 }
 
+.contact-list {
+  list-style-type: none;
+  padding: 0;
+}
 .row-centered {
   text-align: center;
 }

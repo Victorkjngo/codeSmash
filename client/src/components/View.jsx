@@ -11,7 +11,7 @@ class View extends Component {
     super(props);
     var socket = new io({
       transports: ['websocket']
-    }); // how to specify port number?
+    });
 
     this.state = {
       terminal: undefined,

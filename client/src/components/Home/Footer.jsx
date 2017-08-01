@@ -13,8 +13,8 @@ class Footer extends Component {
           <div className="row">
             <div className="col-md-6 col-xs-6 .col-sm-6 center">
               <h2>Contact</h2>
-              <hr/>
-              <ul>
+              <br/>
+              <ul className="contact-list">
                 <li>
                   <a href="#">Matt Reyes</a>
                 </li>
