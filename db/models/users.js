@@ -20,6 +20,7 @@ var userSchema = new Schema(
     },
     'interviews': [
       {
+        'state':
         'date': { type: Date, default: Date.now },
         'start_time': String,
         'room_url': String,

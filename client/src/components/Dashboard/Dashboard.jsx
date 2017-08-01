@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import NavBar from '../Routes/NavBar.jsx';
+import UpcomingInterviewList from './UpcomingInterviewList.jsx';
+import PastInterviewList from './PastInterviewList.jsx';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -16,7 +18,7 @@ class Dashboard extends React.Component {
                 },
                 {date: 'Monday July 31, 2017',
                   time: '3:30 pm',
-                  interviewee: 'Victor Ng',
+                  interviewee: 'Victor Ngo',
                   email: 'victor@gmail.com',
                   interviewer: 'Dan svorcan'
                 }],
@@ -29,7 +31,7 @@ class Dashboard extends React.Component {
             },
             {date: 'Monday July 31, 2017',
               time: '3:30 pm',
-              interviewee: 'Victor Ng',
+              interviewee: 'Victor Ngo',
               email: 'victor@gmail.com',
               interviewer: 'Dan svorcan'
             }]
@@ -100,30 +102,7 @@ class Dashboard extends React.Component {
                       <th>Actions</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>Monday July 31, 2017</td>
-                      <td>3:30 pm</td>
-                      <td>Matthew Reyes</td>
-                      <td>mttrys@gmail.com</td>
-                      <td>Dan Svorcan</td>
-                      <td>
-
-                        <div className="btn-group">
-                          <button className="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Action <span className="caret"></span>
-                          </button>
-                          <ul className="dropdown-menu">
-                            <li><a href="#">Email Link</a></li>
-                            <li><a href="#">Reschedule</a></li>
-                            <li><a href="#">Cancel</a></li>
-                          </ul>
-                        </div>
-
-                      </td>
-
-                    </tr>
-                  </tbody>
+                    <UpcomingInterviewList interviewees={this.state.upcoming}/>
                 </table>
               </div>
 
@@ -140,27 +119,7 @@ class Dashboard extends React.Component {
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>Monday July 31, 2017</td>
-                      <td>3:30 pm</td>
-                      <td>Matthew Reyes</td>
-                      <td>mttrys@gmail.com</td>
-                      <td>Dan Svorcan</td>
-                      <td>
-                        <div className="btn-group">
-                          <button className="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Action <span className="caret"></span>
-                          </button>
-                          <ul className="dropdown-menu">
-                            <li><a href="#">Replay Interview</a></li>
-                            <li><a href="#">Delete</a></li>
-                          </ul>
-                        </div>
-                      </td>
-                    </tr>
-
-                  </tbody>
+                    <PastInterviewList interviewees={this.state.past}/>
                 </table>
               </div>
 
