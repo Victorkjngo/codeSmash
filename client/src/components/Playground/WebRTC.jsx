@@ -345,9 +345,7 @@ class WebRTC extends Component {
 
   }
     handleVideoToggle() {      
-      $('#video-toggle').click(
-        $('#video-bar').slideToggle()
-      );
+      $('#video-toggle').on('click', $('#video-bar').slideToggle());
 
     }
 
@@ -367,12 +365,10 @@ class WebRTC extends Component {
   render () {
     return (
       <div className="center row" id="web-rtc-video">
-        <div className="col-sm-1">
+        <div className="col-sm-1 video-buttons">
           <div className="btn-group-vertical" role="group">
-
             <button type="button" id="video-toggle" onClick={this.handleVideoToggle} className="btn btn-default glyphicon glyphicon-facetime-video" aria-label="Left Align" aria-hidden="true">
             </button>
-
             <button type="button" onClick={this.handleAudioToggle} className="btn btn-default glyphicon glyphicon-headphones" aria-label="Left Align" aria-hidden="true">
             </button>
           </div>

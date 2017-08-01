@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Playground, Terminal, WebRTC, IntervieweeModal } from './Playground/index.jsx';
+import { Playground, Terminal, WebRTC, PlaygroundFooter } from './Playground/index.jsx';
 import Navbar from './Routes/NavBar.jsx';
 import xTerm from 'xterm';
 import io from 'socket.io-client';
@@ -88,7 +88,6 @@ class View extends Component {
   }
 
   handleRunClick () {
-
     let code = document.getElementById('code').value;
     var payload = {
       code: code
@@ -183,9 +182,9 @@ class View extends Component {
       <div className='view'>
         <Navbar/>
         <WebRTC />
-        <Playground saveCodeSnippet={this.saveCodeSnippet} handleRunClick={this.handleRunClick} handleClearClick={this.handleClearClick} editorCode={this.state.editorCode} socket={this.state.socket}/>
+        <Playground editorCode={this.state.editorCode} socket={this.state.socket}/>
         <div className='Terminal' id='terminal'></div>
-        <IntervieweeModal/>
+        <PlaygroundFooter saveCodeSnippet={this.saveCodeSnippet} handleRunClick={this.handleRunClick} handleClearClick={this.handleClearClick} editorCode={this.state.editorCode}/>
       </div>
     );
   }

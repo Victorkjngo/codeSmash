@@ -4,7 +4,6 @@ import CodeMirror from 'codemirror';
 import colorize from '../../../../node_modules/codemirror/addon/runmode/colorize.js';
 import activeLine from '../../../../node_modules/codemirror/addon/selection/active-line.js';
 import javascript from '../../../../node_modules/codemirror/mode/javascript/javascript.js';
-import Invite from './Invite.jsx';
 import _ from 'underscore';
 
 class Playground extends Component {
@@ -106,33 +105,6 @@ class Playground extends Component {
   render () {
     return (
       <div className="playground">
-         <div className="buttons"> 
-          <button onClick={ _ => {
-            this.handleRunClick();
-          }} 
-          className="run btn btn-primary btn-sm"
-          >
-          Run
-          </button>  
-          <button onClick={ _ => {
-            this.handleClearClick();
-            this.emitClearEvent();  
-          }}
-          className="run btn btn-primary btn-sm"
-          >Clear
-          </button>  
-
-          <button onClick={ _ => {
-            this.saveCodeSnippet();
-          }}
-          className="run btn btn-primary btn-sm"
-          >Save 
-          </button>
-
-          <Invite/>
-        </div>
-
-
         <textarea id="code"></textarea>
       </div>
     );
