@@ -6,7 +6,36 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      upcoming: [
+                {date: 'Monday July 31, 2017',
+                  time: '3:30 pm',
+                  interviewee: 'Matthew Reyes',
+                  email: 'mttrys@gmail.com',
+                  interviewer: 'Dan svorcan'
+                },
+                {date: 'Monday July 31, 2017',
+                  time: '3:30 pm',
+                  interviewee: 'Victor Ng',
+                  email: 'victor@gmail.com',
+                  interviewer: 'Dan svorcan'
+                }],
+      past: [
+            {date: 'Monday July 31, 2017',
+              time: '3:30 pm',
+              interviewee: 'June Park',
+              email: 'June@gmail.com',
+              interviewer: 'Dan svorcan'
+            },
+            {date: 'Monday July 31, 2017',
+              time: '3:30 pm',
+              interviewee: 'Victor Ng',
+              email: 'victor@gmail.com',
+              interviewer: 'Dan svorcan'
+            }]
+    }
   }
+
 
   render() {
     return (
@@ -27,7 +56,7 @@ class Dashboard extends React.Component {
             <div className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
               <h1 className="page-header">Interviews</h1>
 
-              <h2 className="sub-header">Add Upcoming Interview</h2>
+              <h2 className="sub-header">Add New Interview</h2>
               <div className="table-responsive">
                 <table className="table table-striped">
                   <thead>
