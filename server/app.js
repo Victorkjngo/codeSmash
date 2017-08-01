@@ -145,7 +145,7 @@ io.on('connection', function(socket) {
   });
 
   socket.on('error', function(error) {
-    // console.error('Error: ', error);
+
   });
 
 

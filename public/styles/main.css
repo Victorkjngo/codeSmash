@@ -143,6 +143,11 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 999;
   bottom: 0;
 }
+ 
+/* Dropup*/
+.dropdown-menu li:hover{
+  background-color: lightgrey;
+}
 
 /* LANDING PAGE */
 .home, .options-and-info {

@@ -17,7 +17,7 @@ class View extends Component {
       codeMirror: undefined,
       terminal: undefined,
       socket: socket,
-      editorCode: `function myScript() {\n\treturn 100;\n}\nconsole.log(myScript());\n`,
+      editorCode: `while(true){console.log'Big whoop');}`,
       interviewee: null
     };
 
@@ -29,8 +29,6 @@ class View extends Component {
     this.saveCodeSnippet = this.saveCodeSnippet.bind(this);
     this.sendMirror = this.sendMirror.bind(this);
   }
-
-  
 
   componentDidMount () {
     var options = {
@@ -67,8 +65,6 @@ class View extends Component {
 
     });
 
-    
-
   }
 
   handleClearClick () {
@@ -82,14 +78,19 @@ class View extends Component {
   writeTerminal (output) {
     var {result, logs, error, longError} = output;
 
-    if (logs.length > 1) {
-      this.state.terminal.writeln(logs.join(''));
-    } else {
-      this.state.terminal.writeln(logs.join('\n'));
-    }
-
     if (error) {
-      this.state.terminal.writeln(result); // when there's an error, result will become a error message
+      if (!longError) {
+        this.state.terminal.writeln(error);
+      } else {
+        this.state.terminal.writeln(result);
+      }
+    } else if (logs.length > 1) {
+      logs.pop();
+      logs.forEach(log => {
+        this.state.terminal.writeln(log);
+      });
+    } else {
+      this.state.terminal.writeln();
     }
 
   }
@@ -118,10 +119,9 @@ class View extends Component {
         res.text()
           .then(output => {
             output = JSON.parse(output);
-            console.log('Response from server:', output, typeof output);
-
-            this.state.socket.emit('executed_code', output);
+            console.log('Ouput from server:', JSON.stringify(output, null, 2));
             this.writeTerminal(output);
+            this.state.socket.emit('executed_code', output);
 
           });
       })
