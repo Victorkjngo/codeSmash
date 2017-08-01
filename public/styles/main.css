@@ -232,6 +232,41 @@ footer {
   left: 0;
 }
 
+/* FOOTER NAVBAR FOR PLAYGROUND.JSX */
+
+.footer-dropup {
+  background: #2d353c;
+  color: white;
+  padding: 10px
+}
+
+.footer-dropup li {
+  margin: 5px;
+}
+
+#shortlink {
+  background: #22282e;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 0;
+  outline: 0;
+  padding: 0 0 0 12px;
+  border-radius: 4px;
+  height: 32px;
+  line-height: 32px;
+  color: #f2f5f7;
+}
+
+#invite-dropup {
+  padding: 20px
+}
+
+#invite {
+  background: #26dbb8;
+  border-color: #26dbb8;
+}
+
 .contact-list {
   list-style-type: none;
   padding: 0;

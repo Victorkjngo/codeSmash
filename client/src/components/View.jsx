@@ -17,7 +17,7 @@ class View extends Component {
       codeMirror: undefined,
       terminal: undefined,
       socket: socket,
-      editorCode: `function myScript() {\n\tconsole.log('Returning 100');\n\treturn 100;\n}\nconsole.log(myScript());\n`,
+      editorCode: `function myScript() {\n\treturn 100;\n}\nconsole.log(myScript());\n`,
       interviewee: null
     };
 
@@ -189,8 +189,6 @@ class View extends Component {
 
   sendMirror (codeMirror) {
     this.setState({codeMirror: codeMirror}, _ => {
-      console.log('Sending the mirror!!!');
-      console.log('Expecting codeMirror:', this.state.codeMirror);
     });
   }
   
@@ -201,7 +199,7 @@ class View extends Component {
       <div className='view'>
 
         <Navbar/>
-        {/* <WebRTC /> */}
+        <WebRTC />
         <Playground editorCode={this.state.editorCode} sendMirror={this.sendMirror} socket={this.state.socket}/>
         <div className='Terminal' id='terminal'></div>
         <PlaygroundFooter editorCode={this.state.editorCode} emitClearEvent={this.emitClearEvent} handleRunClick={this.handleRunClick} handleClearClick={this.handleClearClick} injectQuestion={this.injectQuestion} saveCodeSnippet={this.saveCodeSnippet} />

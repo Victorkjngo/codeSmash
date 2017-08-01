@@ -43,7 +43,6 @@ class PlaygroundFooter extends Component {
   fireInjectQuestion () {
     var selectTopic = this.state.selectTopic;
     if (!!selectTopic) {
-      console.log('selectTopic:', selectTopic, typeof selectTopic);
       for (var i = 0; i < this.state.questionList.length; i++) {
         var { topic, code } = this.state.questionList[i];
         if (topic === selectTopic) {
@@ -59,13 +58,13 @@ class PlaygroundFooter extends Component {
         <div className="container">
           <ul className="nav navbar-nav">
             <li>
-              <button onClick={ _ => {props.handleRunClick();}} className="run btn btn-primary btn-sm">Run</button>
+              <button onClick={ _ => {this.props.handleRunClick();}} className="run btn btn-primary btn-sm">Run</button>
             </li>
 
             <li>
               <button onClick={ _ => {
-                props.handleClearClick();
-                props.emitClearEvent();  
+                this.props.handleClearClick();
+                this.props.emitClearEvent();  
               }}
               className="run btn btn-primary btn-sm"
               >Clear
@@ -74,7 +73,7 @@ class PlaygroundFooter extends Component {
 
             <li>
               <button onClick={ _ => {
-                props.saveCodeSnippet();
+                this.props.saveCodeSnippet();
               }}
               className="run btn btn-primary btn-sm"
               >Save 
@@ -85,11 +84,11 @@ class PlaygroundFooter extends Component {
 
             <li>
               <div className="dropdown"> 
-                <button className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <button className="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                   <span id="selected">Topics</span>
                   <span className="caret"></span>
                 </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <ul className="dropdown-menu footer-dropup" aria-labelledby="dropdownMenu1">
                   {/* Voodoo magic below */}
                   {this.state.questionList.map((question, i) => <li key={i}>{question.topic}</li>)}
                 </ul>
