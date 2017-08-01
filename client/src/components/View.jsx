@@ -21,6 +21,7 @@ class View extends Component {
     };
 
     xTerm.loadAddon('fit');
+    this.emitClearEvent = this.emitClearEvent.bind(this);
     this.handleRunClick = this.handleRunClick.bind(this);
     this.handleClearClick = this.handleClearClick.bind(this);
     this.saveCodeSnippet = this.saveCodeSnippet.bind(this);
@@ -78,6 +79,9 @@ class View extends Component {
     this.state.terminal.clear();
   }
 
+  emitClearEvent () {
+    this.state.socket.emit('cleared_terminal');
+  }
 
   writeTerminal (output) {
     var {result, logs, error, longError} = output;
@@ -201,12 +205,10 @@ class View extends Component {
 
         <Navbar/>
         {/* <WebRTC /> */}
-        <Playground saveCodeSnippet={this.saveCodeSnippet} handleRunClick={this.handleRunClick} handleClearClick={this.handleClearClick} editorCode={this.state.editorCode} socket={this.state.socket}/>
+        <Playground editorCode={this.state.editorCode} socket={this.state.socket}/>
         <div className='Terminal' id='terminal'></div>
-        <IntervieweeModal/>
-        
-        
-
+        <PlaygroundFooter emitClearEvent={this.emitClearEvent} saveCodeSnippet={this.saveCodeSnippet} handleRunClick={this.handleRunClick} handleClearClick={this.handleClearClick} editorCode={this.state.editorCode}/>
+      
       </div>
     );
   }
