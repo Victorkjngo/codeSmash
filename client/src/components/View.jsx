@@ -30,11 +30,7 @@ class View extends Component {
     this.sendMirror = this.sendMirror.bind(this);
   }
 
-<<<<<<< HEAD
-=======
 
-
->>>>>>> dynamically rendering upcoming and past interviewees
   componentDidMount () {
     var options = {
       cursorBlink: true,
