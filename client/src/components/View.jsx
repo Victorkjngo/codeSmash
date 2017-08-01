@@ -11,9 +11,10 @@ class View extends Component {
     super(props);
     var socket = new io({
       transports: ['websocket']
-    }); // how to specify port number?
+    });
 
     this.state = {
+      codeMirror: undefined,
       terminal: undefined,
       socket: socket,
       editorCode: `function myScript() {\n\tconsole.log('Returning 100');\n\treturn 100;\n}\nconsole.log(myScript());\n`,
@@ -21,10 +22,15 @@ class View extends Component {
     };
 
     xTerm.loadAddon('fit');
+    this.emitClearEvent = this.emitClearEvent.bind(this);
     this.handleRunClick = this.handleRunClick.bind(this);
     this.handleClearClick = this.handleClearClick.bind(this);
+    this.injectQuestion = this.injectQuestion.bind(this);
     this.saveCodeSnippet = this.saveCodeSnippet.bind(this);
+    this.sendMirror = this.sendMirror.bind(this);
   }
+
+  
 
   componentDidMount () {
     var options = {
@@ -39,31 +45,29 @@ class View extends Component {
       term.blur();
 
       this.state.socket.on('executed_code', (output) => {
-        // console.log('Running code, badoop!');
         this.writeTerminal(output);
       });
 
       this.state.socket.on('cleared_terminal', (output) => {
-        // console.log('Clearing terminal, Commander!', output);
         this.state.terminal.clear();
       });
 
       this.state.socket.on('connect', () => {
-        // console.log('Connected to socket. Id:', this.state.socket.id);
+        console.log('Connected to socket. Id:', this.state.socket.id);
       });
 
       // Error handling
       this.state.socket.on('error', function (error) {
-        // console.log('Error', error);
+        console.log('Error', error);
       });
 
       this.state.socket.on('connect_error', (error) => {
-        // console.log('Connection error:', error);
+        console.log('Connection error:', error);
       });
 
     });
 
-
+    
 
   }
 
@@ -71,6 +75,9 @@ class View extends Component {
     this.state.terminal.clear();
   }
 
+  emitClearEvent () {
+    this.state.socket.emit('cleared_terminal');
+  }
 
   writeTerminal (output) {
     var {result, logs, error, longError} = output;
@@ -124,6 +131,12 @@ class View extends Component {
 
   }
 
+  injectQuestion (question) {
+    console.log('Injecting this question:', question);
+    this.state.codeMirror.setValue(question);
+    this.state.codeMirror.execCommand('goDocEnd');
+  }
+
   saveCodeSnippet() {
     var dummyData = {
       'id': '5',
@@ -174,17 +187,25 @@ class View extends Component {
       });
   }
 
+  sendMirror (codeMirror) {
+    this.setState({codeMirror: codeMirror}, _ => {
+      console.log('Sending the mirror!!!');
+      console.log('Expecting codeMirror:', this.state.codeMirror);
+    });
+  }
   
 
 
   render () {
     return (
       <div className='view'>
+
         <Navbar/>
-        <WebRTC />
-        <Playground editorCode={this.state.editorCode} socket={this.state.socket}/>
+        {/* <WebRTC /> */}
+        <Playground editorCode={this.state.editorCode} sendMirror={this.sendMirror} socket={this.state.socket}/>
         <div className='Terminal' id='terminal'></div>
-        <PlaygroundFooter saveCodeSnippet={this.saveCodeSnippet} handleRunClick={this.handleRunClick} handleClearClick={this.handleClearClick} editorCode={this.state.editorCode}/>
+        <PlaygroundFooter editorCode={this.state.editorCode} emitClearEvent={this.emitClearEvent} handleRunClick={this.handleRunClick} handleClearClick={this.handleClearClick} injectQuestion={this.injectQuestion} saveCodeSnippet={this.saveCodeSnippet} />
+      
       </div>
     );
   }

@@ -12,7 +12,7 @@ class Playground extends Component {
 
     this.state = {
       theme: 'monokai-sublime'
-    }
+    };
 
     this.saveCodeSnippet = props.saveCodeSnippet;
     this.handleRunClick = props.handleRunClick;
@@ -96,10 +96,7 @@ class Playground extends Component {
       
     });
     
-  }
-
-  emitClearEvent () {
-    this.props.socket.emit('cleared_terminal');
+    this.props.sendMirror(codeMirror);
   }
 
   render () {
