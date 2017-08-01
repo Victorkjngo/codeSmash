@@ -11,7 +11,7 @@ class View extends Component {
     super(props);
     var socket = new io({
       transports: ['websocket']
-    }); // how to specify port number?
+    });
 
     this.state = {
       terminal: undefined,
@@ -24,6 +24,10 @@ class View extends Component {
     this.handleRunClick = this.handleRunClick.bind(this);
     this.handleClearClick = this.handleClearClick.bind(this);
     this.saveCodeSnippet = this.saveCodeSnippet.bind(this);
+  }
+
+  changeSelectedQuestion (selected) {
+    document.getElementById('selected').textContent = selected;
   }
 
   componentDidMount () {
@@ -39,31 +43,34 @@ class View extends Component {
       term.blur();
 
       this.state.socket.on('executed_code', (output) => {
-        // console.log('Running code, badoop!');
         this.writeTerminal(output);
       });
 
       this.state.socket.on('cleared_terminal', (output) => {
-        // console.log('Clearing terminal, Commander!', output);
         this.state.terminal.clear();
       });
 
       this.state.socket.on('connect', () => {
-        // console.log('Connected to socket. Id:', this.state.socket.id);
+        console.log('Connected to socket. Id:', this.state.socket.id);
       });
 
       // Error handling
       this.state.socket.on('error', function (error) {
-        // console.log('Error', error);
+        console.log('Error', error);
       });
 
       this.state.socket.on('connect_error', (error) => {
-        // console.log('Connection error:', error);
+        console.log('Connection error:', error);
       });
 
     });
 
-
+    document.querySelectorAll('.dropdown-menu li').forEach(el => {
+      el.addEventListener('click', _ => {
+        var clickedQuestion = el.textContent;
+        this.changeSelectedQuestion(clickedQuestion);
+      });
+    });
 
   }
 
@@ -180,11 +187,26 @@ class View extends Component {
   render () {
     return (
       <div className='view'>
+        <div className="dropdown"> 
+          <button className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <span id="selected">Questions</span>
+            <span className="caret"></span>
+          </button>
+          <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li>Action</li>
+            <li>Another action</li>
+            <li role="separator" className="divider"></li>
+          </ul>
+        </div> 
+
         <Navbar/>
-        <WebRTC />
-        <Playground editorCode={this.state.editorCode} socket={this.state.socket}/>
+        {/* <WebRTC /> */}
+        <Playground saveCodeSnippet={this.saveCodeSnippet} handleRunClick={this.handleRunClick} handleClearClick={this.handleClearClick} editorCode={this.state.editorCode} socket={this.state.socket}/>
         <div className='Terminal' id='terminal'></div>
-        <PlaygroundFooter saveCodeSnippet={this.saveCodeSnippet} handleRunClick={this.handleRunClick} handleClearClick={this.handleClearClick} editorCode={this.state.editorCode}/>
+        <IntervieweeModal/>
+        
+        
+
       </div>
     );
   }
