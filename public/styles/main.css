@@ -20,7 +20,6 @@ html {
 
 .container, .container-fluid {
   margin: 0 auto;
-  max-width: 1200px;
 }
 
 .row-fluid {

@@ -11,6 +11,10 @@ class Playground extends Component {
   constructor (props) {
     super(props);
 
+    this.state = {
+      theme: 'monokai-sublime'
+    }
+
     this.saveCodeSnippet = props.saveCodeSnippet;
     this.handleRunClick = props.handleRunClick;
     this.handleClearClick = props.handleClearClick;
@@ -25,7 +29,7 @@ class Playground extends Component {
       indentUnit: 2,
       lineNumbers: true,
       lineWrapping: true,
-      theme: 'monokai-sublime',
+      theme: this.state.theme,
       autofocus: true,
       mode: {
         name: 'javascript',

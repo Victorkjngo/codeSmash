@@ -6,14 +6,19 @@ import io from 'socket.io-client';
 class WebRTC extends Component {
   constructor (props) {
     super(props);
+    this.state = {
+      USE_AUDIO: true,
+      USE_VIDEO: true,
+      local_media_stream: null
+    }
+    // this.handleAudioToggle = this.handleAudioToggle.bind(this);
+    // this.handleVideoToggle = this.handleVideoToggle.bind(this);
   }
 
   componentDidMount () {
     /** CONFIG **/
     // var SIGNALING_SERVER = 'http://localhost';
 
-    var USE_AUDIO = true;
-    var USE_VIDEO = true;
     var DEFAULT_CHANNEL = 'some-global-channel-name';
     var MUTE_AUDIO_BY_DEFAULT = false;
 
@@ -39,7 +44,7 @@ class WebRTC extends Component {
     ];
 
     var signaling_socket = null; /* our socket.io connection to our webserver */
-    var local_media_stream = null; /* our own microphone / webcam */
+    // var local_media_stream = null; /* our own microphone / webcam */
     var peers = {}; /* keep track of our peer connections, indexed by peer_id (aka socket.io id) */
     var peer_media_elements = {}; /* keep track of our <video>/<audio> tags, indexed by peer_id */
 
@@ -131,7 +136,7 @@ class WebRTC extends Component {
       // ON ADD STREAM NOT WORKING
       peer_connection.onaddstream = function(event) {
         console.log('addPeer: onaddstream WORKING!');
-        var remote_media = USE_VIDEO ? document.createElement('video') : document.createElement('audio');
+        var remote_media = this.state.USE_VIDEO ? document.createElement('video') : document.createElement('audio');
         remote_media.setAttribute('autoplay', 'autoplay');
         if (MUTE_AUDIO_BY_DEFAULT) {
           remote_media.setAttribute('muted', 'true');
@@ -151,7 +156,7 @@ class WebRTC extends Component {
       // });
 
 
-      peer_connection.addStream(local_media_stream);
+      peer_connection.addStream(this.state.local_media_stream);
 
       /* Only one side of the peer connection should create the
        * offer, the signaling server picks one to be the offerer.
@@ -286,8 +291,8 @@ class WebRTC extends Component {
       }
     };
 
-    const setup_local_media = function(callback, errorback) {
-      if (local_media_stream != null) { /* ie, if we've already been initialized */
+    const setup_local_media = (callback, errorback) => {
+      if (this.state.local_media_stream != null) { /* ie, if we've already been initialized */
         if (callback) {
           callback();
         }
@@ -307,14 +312,14 @@ class WebRTC extends Component {
 
       console.log('4. Getting user media!...');
       navigator.getUserMedia({
-        'audio': USE_AUDIO,
-        'video': USE_VIDEO
+        'audio': this.state.USE_AUDIO,
+        'video': this.state.USE_VIDEO
       },
-      function(stream) { /* user accepted access to a/v */
+      (stream) => { /* user accepted access to a/v */
         console.log('5. Access granted to audio/video');
 
-        local_media_stream = stream;
-        var local_media = USE_VIDEO ? document.createElement('video') : document.createElement('audio');
+        this.setState({ local_media_stream: stream });
+        var local_media = this.state.USE_VIDEO ? document.createElement('video') : document.createElement('audio');
 
         local_media.setAttribute('autoplay', 'autoplay');
         local_media.setAttribute('muted', 'true'); /* always mute ourselves by default */
@@ -325,10 +330,10 @@ class WebRTC extends Component {
         attachMediaStream(local_media, stream);
 
         if (callback) {
-          callback(local_media_stream);
+          callback(this.state.local_media_stream);
         }
       },
-      function() { /* user denied access to a/v */
+      () => { /* user denied access to a/v */
         console.log('Access denied for audio/video');
         alert('You chose not to provide access to the camera/microphone, demo will not work.');
         if (errorback) {
@@ -339,25 +344,43 @@ class WebRTC extends Component {
     };
 
   }
+    handleVideoToggle() {      
+      $('#video-toggle').click(
+        $('#video-bar').slideToggle()
+      );
+
+    }
+
+    handleAudioToggle() {
+      var videos = document.getElementsByTagName('video')
+      // var videos is an HTML collection, must use For loop to iterate
+      for (let i = 0; i < videos.length; i++) {
+        console.log('MUTED!', videos[i].muted)
+        videos[i].muted === 'true' ? videos[i].setAttribute('muted', 'false') : videos[i].setAttribute('muted', 'true')
+        console.log('UNMUTED!', videos[i].muted)
+      }
+      // this.setState({ USE_AUDIO: !this.state.USE_AUDIO });
+      // console.log('this is the VIDEO', typeof videos)
+       
+    }
 
   render () {
     return (
-      <div className="container-fluid center row" id='video-bar'>
+      <div className="center row" id="web-rtc-video">
         <div className="col-sm-1">
           <div className="btn-group-vertical" role="group">
 
-            <button type="button" className="btn btn-default glyphicon glyphicon-facetime-video" aria-label="Left Align" aria-hidden="true">
+            <button type="button" id="video-toggle" onClick={this.handleVideoToggle} className="btn btn-default glyphicon glyphicon-facetime-video" aria-label="Left Align" aria-hidden="true">
             </button>
 
-            <button type="button" className="btn btn-default glyphicon glyphicon-headphones" aria-label="Left Align" aria-hidden="true">
+            <button type="button" onClick={this.handleAudioToggle} className="btn btn-default glyphicon glyphicon-headphones" aria-label="Left Align" aria-hidden="true">
             </button>
-
-
-
           </div>
         </div>
-        <div className='col-sm-10 videos'></div>
-        <div className="col-sm-1"></div>
+        <div id='video-bar'>
+          <div className='col-sm-10 videos'></div>
+          <div className="col-sm-1"></div>
+        </div>
       </div>
     );
   }

@@ -56,7 +56,6 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
         display: oauthProfile.displayName || `${oauthProfile.name.givenName} ${oauthProfile.name.familyName}`,
         email: oauthProfile.emails[0].value
       };
-
     })
     // .then(profile => {
 // GOOGLE PROFILE
