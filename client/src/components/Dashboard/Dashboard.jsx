@@ -42,9 +42,8 @@ class Dashboard extends React.Component {
       <div>
         <NavBar/>
 
-
-        <div className="container-fluid">
-          <div className="row">
+          <div className="container-fluid">
+            <div className="row">
             <div className="col-sm-3 col-md-2 sidebar">
               <ul className="nav nav-sidebar">
                 <li><a href="#">Overview</a></li>
@@ -64,8 +63,9 @@ class Dashboard extends React.Component {
                       <th>Date</th>
                       <th>Time</th>
                       <th>Interviewee</th>
+                      <th>Email</th>
                       <th>Interviewer</th>
-                      <th>Actions</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -73,8 +73,15 @@ class Dashboard extends React.Component {
                       <td>Monday July 31, 2017</td>
                       <td>3:30 pm</td>
                       <td>Matthew Reyes</td>
+                      <td>mttrys@gmail.com</td>
                       <td>Dan Svorcan</td>
-                      <td>Drop Menu</td>
+                      <td>
+                        <div className="btn-group">
+                          <button className="btn btn-default btn-sm" type="button"  aria-haspopup="true" aria-expanded="false">
+                            Add
+                          </button>
+                        </div>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -88,9 +95,9 @@ class Dashboard extends React.Component {
                       <th>Date</th>
                       <th>Time</th>
                       <th>Interviewee</th>
+                      <th>Email</th>
                       <th>Interviewer</th>
                       <th>Actions</th>
-
                     </tr>
                   </thead>
                   <tbody>
@@ -98,8 +105,22 @@ class Dashboard extends React.Component {
                       <td>Monday July 31, 2017</td>
                       <td>3:30 pm</td>
                       <td>Matthew Reyes</td>
+                      <td>mttrys@gmail.com</td>
                       <td>Dan Svorcan</td>
-                      <td>Drop Menu</td>
+                      <td>
+
+                        <div className="btn-group">
+                          <button className="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Action <span className="caret"></span>
+                          </button>
+                          <ul className="dropdown-menu">
+                            <li><a href="#">Email Link</a></li>
+                            <li><a href="#">Reschedule</a></li>
+                            <li><a href="#">Cancel</a></li>
+                          </ul>
+                        </div>
+
+                      </td>
 
                     </tr>
                   </tbody>
@@ -114,8 +135,9 @@ class Dashboard extends React.Component {
                       <th>Date</th>
                       <th>Time</th>
                       <th>Interviewee</th>
+                      <th>Email</th>
                       <th>Interviewer</th>
-                      <th>Actions</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -123,8 +145,19 @@ class Dashboard extends React.Component {
                       <td>Monday July 31, 2017</td>
                       <td>3:30 pm</td>
                       <td>Matthew Reyes</td>
+                      <td>mttrys@gmail.com</td>
                       <td>Dan Svorcan</td>
-                      <td>Drop Menu</td>
+                      <td>
+                        <div className="btn-group">
+                          <button className="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Action <span className="caret"></span>
+                          </button>
+                          <ul className="dropdown-menu">
+                            <li><a href="#">Replay Interview</a></li>
+                            <li><a href="#">Delete</a></li>
+                          </ul>
+                        </div>
+                      </td>
                     </tr>
 
                   </tbody>

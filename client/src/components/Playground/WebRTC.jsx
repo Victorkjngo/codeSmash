@@ -109,7 +109,7 @@ class WebRTC extends Component {
         }
       };
 
-      // ON ADD STREAM NOT WORKING
+
       peer_connection.onaddstream = function(event) {
         console.log('addPeer: onaddstream WORKING!');
         var remote_media = USE_VIDEO ? document.createElement('video') : document.createElement('audio');
@@ -314,7 +314,7 @@ class WebRTC extends Component {
     };
 
   }
-    handleVideoToggle() {      
+    handleVideoToggle() {
       $('#video-toggle').on('click', $('#video-bar').slideToggle());
 
     }
@@ -324,7 +324,8 @@ class WebRTC extends Component {
       // var videos is an HTML collection, must use For loop to iterate
       for (let i = 0; i < videos.length; i++) {
         videos[i].muted === 'true' ? videos[i].setAttribute('muted', 'false') : videos[i].setAttribute('muted', 'true')
-      }       
+      }
+
     }
 
   render () {
