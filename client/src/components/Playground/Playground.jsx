@@ -96,6 +96,7 @@ class Playground extends Component {
       
     });
     
+    this.props.sendMirror(codeMirror);
   }
 
   render () {

@@ -14,6 +14,7 @@ class View extends Component {
     });
 
     this.state = {
+      codeMirror: undefined,
       terminal: undefined,
       socket: socket,
       editorCode: `function myScript() {\n\tconsole.log('Returning 100');\n\treturn 100;\n}\nconsole.log(myScript());\n`,
@@ -24,12 +25,12 @@ class View extends Component {
     this.emitClearEvent = this.emitClearEvent.bind(this);
     this.handleRunClick = this.handleRunClick.bind(this);
     this.handleClearClick = this.handleClearClick.bind(this);
+    this.injectQuestion = this.injectQuestion.bind(this);
     this.saveCodeSnippet = this.saveCodeSnippet.bind(this);
+    this.sendMirror = this.sendMirror.bind(this);
   }
 
-  changeSelectedQuestion (selected) {
-    document.getElementById('selected').textContent = selected;
-  }
+  
 
   componentDidMount () {
     var options = {
@@ -66,12 +67,7 @@ class View extends Component {
 
     });
 
-    document.querySelectorAll('.dropdown-menu li').forEach(el => {
-      el.addEventListener('click', _ => {
-        var clickedQuestion = el.textContent;
-        this.changeSelectedQuestion(clickedQuestion);
-      });
-    });
+    
 
   }
 
@@ -135,6 +131,12 @@ class View extends Component {
 
   }
 
+  injectQuestion (question) {
+    console.log('Injecting this question:', question);
+    this.state.codeMirror.setValue(question);
+    this.state.codeMirror.execCommand('goDocEnd');
+  }
+
   saveCodeSnippet() {
     var dummyData = {
       'id': '5',
@@ -185,29 +187,24 @@ class View extends Component {
       });
   }
 
+  sendMirror (codeMirror) {
+    this.setState({codeMirror: codeMirror}, _ => {
+      console.log('Sending the mirror!!!');
+      console.log('Expecting codeMirror:', this.state.codeMirror);
+    });
+  }
   
 
 
   render () {
     return (
       <div className='view'>
-        <div className="dropdown"> 
-          <button className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            <span id="selected">Questions</span>
-            <span className="caret"></span>
-          </button>
-          <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li>Action</li>
-            <li>Another action</li>
-            <li role="separator" className="divider"></li>
-          </ul>
-        </div> 
 
         <Navbar/>
         {/* <WebRTC /> */}
-        <Playground editorCode={this.state.editorCode} socket={this.state.socket}/>
+        <Playground editorCode={this.state.editorCode} sendMirror={this.sendMirror} socket={this.state.socket}/>
         <div className='Terminal' id='terminal'></div>
-        <PlaygroundFooter emitClearEvent={this.emitClearEvent} saveCodeSnippet={this.saveCodeSnippet} handleRunClick={this.handleRunClick} handleClearClick={this.handleClearClick} editorCode={this.state.editorCode}/>
+        <PlaygroundFooter editorCode={this.state.editorCode} emitClearEvent={this.emitClearEvent} handleRunClick={this.handleRunClick} handleClearClick={this.handleClearClick} injectQuestion={this.injectQuestion} saveCodeSnippet={this.saveCodeSnippet} />
       
       </div>
     );
