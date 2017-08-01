@@ -30,7 +30,10 @@ class View extends Component {
     this.sendMirror = this.sendMirror.bind(this);
   }
 
+<<<<<<< 425a29e79a016cbca79dd32548f3eeca474cf133
 
+=======
+>>>>>>> (fix) Handles errors and max call stack size errors gracefully.
   componentDidMount () {
     var options = {
       cursorBlink: true,
@@ -86,12 +89,18 @@ class View extends Component {
         this.state.terminal.writeln(result);
       }
     } else if (logs.length > 1) {
+<<<<<<< 425a29e79a016cbca79dd32548f3eeca474cf133
       logs.pop();
       logs.forEach(log => {
         this.state.terminal.writeln(log);
       });
     } else {
       this.state.terminal.writeln();
+=======
+      this.state.terminal.writeln(logs.join(''));
+    } else {
+      this.state.terminal.writeln(logs.join('\n'));
+>>>>>>> (fix) Handles errors and max call stack size errors gracefully.
     }
 
   }
