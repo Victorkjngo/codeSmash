@@ -30,7 +30,7 @@ const routes = [
 module.exports = (
   <BrowserRouter history={ browserHistory }>
     <Switch>
-      <Route exact path={'/'} component={View}></Route>
+      <Route exact path={'/'} component={Dashboard}></Route>
       <Route exact path={'/view'} component={View}></Route>
       <Route path={'/home'} component={Home}></Route>
       <Route path={'/dashboard'} component={Dashboard}></Route>

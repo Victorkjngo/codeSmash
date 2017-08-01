@@ -19,22 +19,7 @@ class WebRTC extends Component {
     /** You should probably use a different stun server doing commercial stuff **/
     /** Also see: https://gist.github.com/zziuni/3741933 **/
     var ICE_SERVERS = [
-      { url: 'stun:global.stun.twilio.com:3478?transport=udp' },
-      {
-        url: 'turn:global.turn.twilio.com:3478?transport=udp',
-        username: '7823fd6b34baece7e291276e43969bc5d8a7ce41ad78ba86b9ca8b7f9a7b2e13',
-        credential: 'Yc5kCs9eC5JOeps4mbmURNmUVjWdJof9N3MItd51zx8='
-      },
-      {
-        url: 'turn:global.turn.twilio.com:3478?transport=tcp',
-        username: '7823fd6b34baece7e291276e43969bc5d8a7ce41ad78ba86b9ca8b7f9a7b2e13',
-        credential: 'Yc5kCs9eC5JOeps4mbmURNmUVjWdJof9N3MItd51zx8='
-      },
-      {
-        url: 'turn:global.turn.twilio.com:443?transport=tcp',
-        username: '7823fd6b34baece7e291276e43969bc5d8a7ce41ad78ba86b9ca8b7f9a7b2e13',
-        credential: 'Yc5kCs9eC5JOeps4mbmURNmUVjWdJof9N3MItd51zx8='
-      }
+      { url: 'stun:global.stun.twilio.com:3478?transport=udp' }
     ];
 
     var signaling_socket = null; /* our socket.io connection to our webserver */
@@ -124,7 +109,7 @@ class WebRTC extends Component {
         }
       };
 
-      // ON ADD STREAM NOT WORKING
+
       peer_connection.onaddstream = function(event) {
         console.log('addPeer: onaddstream WORKING!');
         var remote_media = USE_VIDEO ? document.createElement('video') : document.createElement('audio');
@@ -329,7 +314,7 @@ class WebRTC extends Component {
     };
 
   }
-    handleVideoToggle() {      
+    handleVideoToggle() {
       $('#video-toggle').on('click', $('#video-bar').slideToggle());
 
     }
@@ -339,7 +324,8 @@ class WebRTC extends Component {
       // var videos is an HTML collection, must use For loop to iterate
       for (let i = 0; i < videos.length; i++) {
         videos[i].muted === 'true' ? videos[i].setAttribute('muted', 'false') : videos[i].setAttribute('muted', 'true')
-      }       
+      }
+
     }
 
   render () {

@@ -30,6 +30,7 @@ class View extends Component {
     this.sendMirror = this.sendMirror.bind(this);
   }
 
+
   componentDidMount () {
     var options = {
       cursorBlink: true,
@@ -191,7 +192,7 @@ class View extends Component {
     this.setState({codeMirror: codeMirror}, _ => {
     });
   }
-  
+
 
 
   render () {
@@ -203,7 +204,7 @@ class View extends Component {
         <Playground editorCode={this.state.editorCode} sendMirror={this.sendMirror} socket={this.state.socket}/>
         <div className='Terminal' id='terminal'></div>
         <PlaygroundFooter editorCode={this.state.editorCode} emitClearEvent={this.emitClearEvent} handleRunClick={this.handleRunClick} handleClearClick={this.handleClearClick} injectQuestion={this.injectQuestion} saveCodeSnippet={this.saveCodeSnippet} />
-      
+
       </div>
     );
   }
