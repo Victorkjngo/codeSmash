@@ -20,7 +20,7 @@ var userSchema = new Schema(
     },
     'interviews': [
       {
-        'state':
+        'state': String,
         'date': { type: Date, default: Date.now },
         'start_time': String,
         'room_url': String,
@@ -55,10 +55,10 @@ var select = (callback) => {
     if (err) {
       callback(err, null);
     } else {
-      callback(null, users)
+      callback(null, users);
     }
-  })
-}
+  });
+};
 
 module.exports = Users;
 module.exports.selectAll = selectAll;

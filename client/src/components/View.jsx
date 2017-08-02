@@ -30,7 +30,6 @@ class View extends Component {
     this.sendMirror = this.sendMirror.bind(this);
   }
 
-
   componentDidMount () {
     var options = {
       cursorBlink: true,
@@ -92,6 +91,7 @@ class View extends Component {
       });
     } else {
       this.state.terminal.writeln();
+
     }
 
   }
@@ -133,9 +133,9 @@ class View extends Component {
   }
 
   injectQuestion (question) {
-    console.log('Injecting this question:', question);
     this.state.codeMirror.setValue(question);
     this.state.codeMirror.execCommand('goDocEnd');
+    this.state.codeMirror.save();
   }
 
   saveCodeSnippet() {
