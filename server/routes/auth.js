@@ -10,16 +10,7 @@ const router = express.Router();
 
 var sandbox = new Sandbox();
 
-router.route('/*')
-  .get((req, res) => {
-    console.log('/ route accessed!', 'rendering it to user?');
-    res.render('index.ejs');
-  })
-  .get(middleware.auth.verify, (req, res) => {
-    res.render('index.ejs');
-  });
-
-router.route('/run')
+router.route('/view/run')
   .post((req, res) => {
     console.log('Payload recieved running code...');
     console.log('req body:', req.body);
@@ -111,10 +102,14 @@ router.get('/auth/google/callback', middleware.passport.authenticate('google', {
   failureRedirect: '/login'
 }));
 
-router.route('/dashboard')
+router.route('/*')
   .get((req, res) => {
-    res.render('/dashboard');
+    res.render('index.ejs');
+  })
+  .get(middleware.auth.verify, (req, res) => {
+    res.render('index.ejs');
   });
 
+  
 
 module.exports = router;
