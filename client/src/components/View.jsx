@@ -135,6 +135,7 @@ class View extends Component {
     this.state.codeMirror.setValue(question);
     this.state.codeMirror.execCommand('goDocEnd');
     this.state.codeMirror.save();
+    this.state.codeMirror.focus();
   }
 
   saveCodeSnippet() {
