@@ -4,7 +4,6 @@ import CodeMirror from 'codemirror';
 import colorize from '../../../../node_modules/codemirror/addon/runmode/colorize.js';
 import activeLine from '../../../../node_modules/codemirror/addon/selection/active-line.js';
 import javascript from '../../../../node_modules/codemirror/mode/javascript/javascript.js';
-import _ from 'underscore';
 
 class Playground extends Component {
   constructor (props) {

@@ -31,7 +31,7 @@ module.exports = (
   <BrowserRouter history={ browserHistory }>
     <Switch>
       <Route exact path={'/'} component={Home}></Route>
-      <Route exact path={'/view'} component={View}></Route>
+      <Route path={'/view/:id'} component={View}></Route>
       <Route path={'/dashboard'} component={Dashboard}></Route>
       <Route path={'/login'} component={Login}></Route>
       <Route path={'/pricing'} component={Pricing}></Route>

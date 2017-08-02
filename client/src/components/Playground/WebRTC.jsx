@@ -9,11 +9,12 @@ class WebRTC extends Component {
   }
 
   componentDidMount () {
+    console.log('Joining', this.props.roomName);
     /** CONFIG **/
     // var SIGNALING_SERVER = 'http://localhost';
     var USE_AUDIO = true;
     var USE_VIDEO = true;
-    var DEFAULT_CHANNEL = 'some-global-channel-name';
+    var DEFAULT_CHANNEL = this.props.roomName || 'some-global-channel-name';
     var MUTE_AUDIO_BY_DEFAULT = false;
 
     /** You should probably use a different stun server doing commercial stuff **/
@@ -65,6 +66,20 @@ class WebRTC extends Component {
       signaling_socket.emit('part', channel);
     };
 
+    /***********************/
+    /** Local media stuff **/
+    /***********************/
+    var attachMediaStream = function (element, stream) {
+      if (element === undefined) {
+        debugger;
+      }
+      if (element !== undefined) {
+        element.srcObject = stream;
+      } else {
+        console.error('Element undefined!');
+        return;
+      }
+    };
 
     /**
      * When we join a group, our signaling server will send out 'addPeer' events to each pair
@@ -246,24 +261,6 @@ class WebRTC extends Component {
       delete peer_media_elements[config.peer_id];
     });
 
-
-
-
-    /***********************/
-    /** Local media stuff **/
-    /***********************/
-    function attachMediaStream (element, stream) {
-      if (element === undefined) {
-        debugger;
-      }
-      if (element !== undefined) {
-        element.srcObject = stream;
-      } else {
-        console.error('Element undefined!');
-        return;
-      }
-    };
-
     const setup_local_media = (callback, errorback) => {
       if (local_media_stream != null) { /* ie, if we've already been initialized */
         if (callback) {
@@ -314,19 +311,20 @@ class WebRTC extends Component {
     };
 
   }
-    handleVideoToggle() {
-      $('#video-toggle').on('click', $('#video-bar').slideToggle());
 
+  handleVideoToggle() {
+    $('#video-toggle').on('click', $('#video-bar').slideToggle());
+
+  }
+
+  handleAudioToggle() {
+    var videos = document.getElementsByTagName('video');
+    // var videos is an HTML collection, must use For loop to iterate
+    for (let i = 0; i < videos.length; i++) {
+      videos[i].muted === 'true' ? videos[i].setAttribute('muted', 'false') : videos[i].setAttribute('muted', 'true');
     }
 
-    handleAudioToggle() {
-      var videos = document.getElementsByTagName('video')
-      // var videos is an HTML collection, must use For loop to iterate
-      for (let i = 0; i < videos.length; i++) {
-        videos[i].muted === 'true' ? videos[i].setAttribute('muted', 'false') : videos[i].setAttribute('muted', 'true')
-      }
-
-    }
+  }
 
   render () {
     return (
