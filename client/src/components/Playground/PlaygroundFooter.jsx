@@ -22,6 +22,7 @@ class PlaygroundFooter extends Component {
     };
     this.fireInjectQuestion = this.fireInjectQuestion.bind(this);
     this.injectQuestion = props.injectQuestion;
+    this.uniqueLink = props.uniqueLink;
   }
 
   componentDidMount () {
@@ -80,7 +81,7 @@ class PlaygroundFooter extends Component {
               </button>
             </li>
 
-            <li><Invite/></li>
+            <li><Invite uniqueLink={this.uniqueLink}/></li>
 
             <li>
               <div className="dropdown"> 
