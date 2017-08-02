@@ -18,7 +18,8 @@ class View extends Component {
       terminal: undefined,
       socket: socket,
       editorCode: `while(true){console.log('Big whoop');}`,
-      interviewee: null
+      interviewee: null,
+      roomName: this.props.location.pathname.slice(6)
     };
 
     xTerm.loadAddon('fit');
@@ -31,6 +32,8 @@ class View extends Component {
   }
 
   componentDidMount () {
+
+    
     var options = {
       cursorBlink: true,
       tabStopWidth: 4
@@ -198,9 +201,8 @@ class View extends Component {
   render () {
     return (
       <div className='view'>
-
         <Navbar/>
-        <WebRTC />
+        <WebRTC roomName={this.state.roomName}/>
         <Playground editorCode={this.state.editorCode} sendMirror={this.sendMirror} socket={this.state.socket}/>
         <div className='Terminal' id='terminal'></div>
         <PlaygroundFooter editorCode={this.state.editorCode} emitClearEvent={this.emitClearEvent} handleRunClick={this.handleRunClick} handleClearClick={this.handleClearClick} injectQuestion={this.injectQuestion} saveCodeSnippet={this.saveCodeSnippet} />

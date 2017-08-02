@@ -5,11 +5,19 @@ import { Link } from 'react-router-dom';
 import Main from './Main.jsx';
 import AttentionGrabber from './AttentionGrabber.jsx';
 import Footer from './Footer.jsx';
+import cryptoRandomString from 'crypto-random-string';
 
 class Home extends Component {
   constructor(props) {
     super();
     this.state = {};
+  }
+
+  componentDidMount () { 
+  }
+
+  getRandomRoomNumber () {
+    return cryptoRandomString(10);
   }
 
   render() {
@@ -24,7 +32,7 @@ class Home extends Component {
                 <h2>Collaborate with and interview software engineers in a real-time coding environment with seamless video communication</h2>
               </div>
               <div className="container"> 
-                <Link to='/view'><button className='btn btn-danger landing-btn'>Code Now</button></Link>
+                <Link to={'/view/'+ this.getRandomRoomNumber()}><button className='btn btn-danger landing-btn'>Code Now</button></Link>
                 <Link to='/login'><button className='btn btn-info landing-btn'>Login/Signup</button></Link>
               </div>
           </div>
