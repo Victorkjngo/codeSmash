@@ -9,11 +9,11 @@ import Login from '../Authentication/Login.jsx';
 
 const routes = [
   { path: '/',
-    component: View,
+    component: Home,
     exact: true
   },
-  { path: '/home',
-    component: Home,
+  { path: '/view',
+    component: View,
   },
   { path: '/dashboard',
     component: Dashboard,
@@ -32,7 +32,6 @@ module.exports = (
     <Switch>
       <Route exact path={'/'} component={Home}></Route>
       <Route exact path={'/view'} component={View}></Route>
-      <Route path={'/home'} component={Home}></Route>
       <Route path={'/dashboard'} component={Dashboard}></Route>
       <Route path={'/login'} component={Login}></Route>
       <Route path={'/pricing'} component={Pricing}></Route>

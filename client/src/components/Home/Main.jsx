@@ -12,7 +12,6 @@ class Main extends Component {
     return (
       <section className="main-page">
         <NavBar />
-        <MastHead />
       </section>
     );
   }

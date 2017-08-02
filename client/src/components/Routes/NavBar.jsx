@@ -11,13 +11,12 @@ module.exports = ({hideCodeNow}) => (
           <span className='icon-bar'></span>
           <span className='icon-bar'></span>
         </button>
-        <Link to='/home'><a className='navbar-brand'>CodeSmash</a></Link>
-      <Link to='/view'><button className='btn btn-danger navbar-btn'>Code Now</button></Link>
+        <Link to='/'><a className='navbar-brand'>CodeSmash</a></Link>
       </div>
       <div className='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>
 
         <ul className='nav navbar-nav navbar-right'>
-          <li><Link to='/home'>Home</Link></li>
+          <li><Link to='/'>Home</Link></li>
           <li><Link to='/login'>Login</Link></li>
           <li><Link to='/dashboard'>Dashboard</Link></li>
           <li><Link to='/pricing'>Pricing</Link></li>

@@ -17,7 +17,7 @@ class View extends Component {
       codeMirror: undefined,
       terminal: undefined,
       socket: socket,
-      editorCode: `while(true){console.log'Big whoop');}`,
+      editorCode: `while(true){console.log('Big whoop');}`,
       interviewee: null
     };
 
@@ -120,7 +120,6 @@ class View extends Component {
         res.text()
           .then(output => {
             output = JSON.parse(output);
-            console.log('Ouput from server:', JSON.stringify(output, null, 2));
             this.writeTerminal(output);
             this.state.socket.emit('executed_code', output);
 

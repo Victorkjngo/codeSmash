@@ -11,6 +11,58 @@ html {
   /* background: darkblue; */
 }
 
+/* LANDING PAGE */
+
+.landing-container {
+    background: transparent url(https://download.unsplash.com/photo-1428953773181-b4cf23cd7195) center center;
+    background-size: cover;
+    height: 100%;
+    padding-top: 60px;
+    width: 100%;
+}
+.landing-container::before {
+    background: -webkit-radial-gradient(top center, ellipse cover, rgba(255,255,255,0.2) 0%,rgba(0,0,0,0.5) 75% ,rgba(0,0,0,0.5) 100%);
+    content: "";
+    height: 100%;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+}
+
+.landing-container a.btn.btn-link {
+    color: rgb(255, 255, 255);
+    font-size: 180%;
+    margin: 0px 27px;
+    padding: 6px 0px;
+    opacity: 0.7;
+    text-transform: uppercase;
+}
+.landing-container a.btn.btn-link.active {
+    border-bottom: 2px solid rgb(23, 98, 238);
+    opacity: 1;
+}
+.landing-btn {
+  margin: 20px;
+}
+
+
+#landing-header h1 {
+  color: white;
+  size: 84px;
+}
+
+#landing-header h2 {
+  color: white;
+  margin-top: 42px;
+  size: 32px;
+}
+
+.jumbotron {
+  background: none;
+  margin-top:60px;
+}
+
 .container-fluid{
   height:100%;
   display: table;
@@ -297,6 +349,12 @@ footer {
 }
 
 /* Collapsing Navbar for Mobile */
+@media (max-width: 768px) {
+  #landing-header h2 {
+    size: 22px;
+  }
+}
+
 @media (max-width: 600px) {
   .playground {
     width: 100%;
