@@ -10,7 +10,7 @@ const router = express.Router();
 
 var sandbox = new Sandbox();
 
-router.route('/')
+router.route('/*')
   .get((req, res) => {
     console.log('/ route accessed!', 'rendering it to user?');
     res.render('index.ejs');
@@ -110,5 +110,11 @@ router.get('/auth/google/callback', middleware.passport.authenticate('google', {
   successRedirect: '/',
   failureRedirect: '/login'
 }));
+
+router.route('/dashboard')
+  .get((req, res) => {
+    res.render('/dashboard');
+  });
+
 
 module.exports = router;

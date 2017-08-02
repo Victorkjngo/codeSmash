@@ -55,48 +55,60 @@ class PlaygroundFooter extends Component {
 
   render () {
     return (
-      <div className="navbar navbar-inverse navbar-fixed-bottom">
+      <div className="navbar navbar-inverse navbar-fixed-bottom" id="footer-navbar">
         <div className="container">
           <ul className="nav navbar-nav">
             <li>
-              <button onClick={ _ => {this.props.handleRunClick();}} className="run btn btn-primary btn-sm">Run</button>
+              <div className="col-md-1">
+                <button onClick={ _ => {this.props.handleRunClick();}} className="run btn btn-primary btn-sm">Run</button>
+              </div>
             </li>
 
             <li>
-              <button onClick={ _ => {
-                this.props.handleClearClick();
-                this.props.emitClearEvent();  
-              }}
-              className="run btn btn-primary btn-sm"
-              >Clear
-              </button> 
+              <div className="col-md-1">
+                <button onClick={ _ => {
+                  this.props.handleClearClick();
+                  this.props.emitClearEvent();  
+                }}
+                className="run btn btn-primary btn-sm"
+                >Clear
+                </button> 
+              </div>
             </li>
 
             <li>
-              <button onClick={ _ => {
-                this.props.saveCodeSnippet();
-              }}
-              className="run btn btn-primary btn-sm"
-              >Save 
-              </button>
+              <div className="col-md-1">
+                <button onClick={ _ => {
+                  this.props.saveCodeSnippet();
+                }}
+                className="run btn btn-primary btn-sm"
+                >Save 
+                </button>
+              </div>
             </li>
 
             <li><Invite uniqueLink={this.uniqueLink}/></li>
 
             <li>
-              <div className="dropdown"> 
-                <button className="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                  <span id="selected">Topics</span>
-                  <span className="caret"></span>
-                </button>
-                <ul className="dropdown-menu footer-dropup" aria-labelledby="dropdownMenu1">
-                  {/* Voodoo magic below */}
-                  {this.state.questionList.map((question, i) => <li key={i}>{question.topic}</li>)}
-                </ul>
+              <div className="col-md-1">
+                <div className="dropdown">
+                  <button className="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <span id="selected">Topics</span>
+                    <span className="caret"></span>
+                  </button>
+                  <ul className="dropdown-menu footer-dropup" aria-labelledby="dropdownMenu1">
+                    {/* Voodoo magic below */}
+                    {this.state.questionList.map((question, i) => <li key={i}>{question.topic}</li>)}
+                  </ul>
+                </div>
               </div>
             </li>
 
-            <li><button id="inject-question" className="btn btn-sucess btn-sm" onClick={this.fireInjectQuestion}>Inject</button></li>
+            <li>
+              <div className="col-md-1">
+                <button id="inject-question" className="btn btn-sucess btn-sm" onClick={this.fireInjectQuestion}>Inject</button>
+              </div>
+            </li>
 
           </ul>
         </div>

@@ -290,6 +290,9 @@ footer {
 }
 
 /* FOOTER NAVBAR FOR PLAYGROUND.JSX */
+#footer-navbar {
+  line-height: 50%;
+}
 
 .footer-dropup {
   background: #2d353c;

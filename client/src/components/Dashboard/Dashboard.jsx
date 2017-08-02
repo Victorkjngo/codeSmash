@@ -44,9 +44,8 @@ class Dashboard extends React.Component {
       <div>
         <NavBar/>
 
-          <div className="container-fluid">
-            <div className="row">
-            <div className="col-sm-3 col-md-2 sidebar">
+          <div className="container-fluid" id="dashboard-div">
+            <div className="col-md-2 sidebar">
               <ul className="nav nav-sidebar">
                 <li><a href="#">Overview</a></li>
                 <li className="active"><a href="#">Interviews<span className="sr-only">(current)</span></a></li>
@@ -54,7 +53,7 @@ class Dashboard extends React.Component {
                 <li><a href="#">Billing</a></li>
               </ul>
             </div>
-            <div className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div className="col-md-10  main">
               <h1 className="page-header">Interviews</h1>
 
               <h2 className="sub-header">Add New Interview</h2>
@@ -125,7 +124,6 @@ class Dashboard extends React.Component {
 
             </div>
           </div>
-        </div>
 
 
       </div>
