@@ -38,7 +38,7 @@ class View extends Component {
     var term = new xTerm(options);
 
     this.setState({terminal: term}, _ => {
-      term.open(document.getElementById('terminal'));
+      term.open(document.getElementById('terminal'), false);
       term.fit();
       term.blur();
 
