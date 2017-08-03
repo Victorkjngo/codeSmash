@@ -10,29 +10,35 @@ class Dashboard extends React.Component {
 
     this.state = {
       upcoming: [
-                {date: 'Monday July 31, 2017',
-                  time: '3:30 pm',
-                  interviewee: 'Matthew Reyes',
-                  email: 'mttrys@gmail.com',
+                {date: 'Friday August 4, 2017',
+                  time: '2:30 pm',
+                  interviewee: 'Joe Lei',
+                  email: 'Joe@gmail.com',
                   interviewer: 'Dan svorcan'
                 },
-                {date: 'Monday July 31, 2017',
+                {date: 'Friday August 4, 2017',
                   time: '3:30 pm',
                   interviewee: 'Victor Ngo',
                   email: 'victor@gmail.com',
                   interviewer: 'Dan svorcan'
+                },
+                {date: 'Friday August 4, 2017',
+                  time: '4:30 pm',
+                  interviewee: 'June Park',
+                  email: 'June@gmail.com',
+                  interviewer: 'Dan svorcan'
                 }],
       past: [
             {date: 'Monday July 31, 2017',
-              time: '3:30 pm',
-              interviewee: 'June Park',
-              email: 'June@gmail.com',
+              time: '2:30 pm',
+              interviewee: 'Kirk Rohani',
+              email: 'Kirk@gmail.com',
               interviewer: 'Dan svorcan'
             },
             {date: 'Monday July 31, 2017',
               time: '3:30 pm',
-              interviewee: 'Victor Ngo',
-              email: 'victor@gmail.com',
+              interviewee: 'Paul DOckery',
+              email: 'Paul@gmail.com',
               interviewer: 'Dan svorcan'
             }]
     }
@@ -47,7 +53,6 @@ class Dashboard extends React.Component {
           <div className="container-fluid" id="dashboard-div">
             <div className="col-md-2 sidebar">
               <ul className="nav nav-sidebar">
-                <li><a href="#">Overview</a></li>
                 <li className="active"><a href="#">Interviews<span className="sr-only">(current)</span></a></li>
                 <li><a href="#">Questions</a></li>
                 <li><a href="#">Billing</a></li>

@@ -16,7 +16,8 @@ var UpcomingInterviewList = ({interviewees}) => (
                 Action <span className="caret"></span>
               </button>
               <ul className="dropdown-menu">
-                <li><a href="#">Email Link</a></li>
+                <li><a href="#" onClick={console.log('hello')}>Email Link</a></li>
+                <li><a href="#">Go To Room</a></li>
                 <li><a href="#">Reschedule</a></li>
                 <li><a href="#">Cancel</a></li>
               </ul>
