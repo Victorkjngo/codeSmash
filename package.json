@@ -5,8 +5,9 @@
     "start": "node server",
     "test": "NODE_ENV=test grunt test",
     "build": "webpack --watch",
+    "build2": "webpack --config=webpack.config.babel.js -p",
     "heroku-postbuild": "npm run webpack:deploy",
-    "webpack:deploy": "webpack --config=webpack.config.babel.js -p"
+    "webpack:deploy": "webpack --config=webpack.config.babel.js"
   },
   "author": "Jun Park, Matt Reyez, Victor Ngo",
   "license": "MIT",
