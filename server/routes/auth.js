@@ -5,6 +5,7 @@ const exec = require('child_process').exec;
 const path = require('path');
 const Sandbox = require('sandbox');
 
+const app = express();
 
 const router = express.Router();
 
@@ -109,6 +110,7 @@ router.route('/*')
   .get(middleware.auth.verify, (req, res) => {
     res.render('index.ejs');
   });
+
 
   
 
