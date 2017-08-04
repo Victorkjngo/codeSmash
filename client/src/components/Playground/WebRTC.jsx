@@ -11,7 +11,6 @@ class WebRTC extends Component {
   componentDidMount () {
     console.log('Joining', this.props.roomName);
     /** CONFIG **/
-    // var SIGNALING_SERVER = 'http://localhost';
     var USE_AUDIO = true;
     var USE_VIDEO = true;
     var DEFAULT_CHANNEL = this.props.roomName || 'some-global-channel-name';
