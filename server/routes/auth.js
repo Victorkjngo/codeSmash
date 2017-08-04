@@ -39,6 +39,7 @@ router.route('/view/run')
           console.log('verboseError', verboseError);
           // resolve({data: stdout.toString(), error: stderr.toString()});
           sandbox.run(code, output => {
+            
             // console.log('Sandbox output:', output);
             output = {
               result: output.result,
