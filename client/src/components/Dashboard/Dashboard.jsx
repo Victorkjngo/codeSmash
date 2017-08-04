@@ -12,38 +12,39 @@ class Dashboard extends React.Component {
 
     this.state = {
       upcoming: [
-                {date: 'Friday August 4, 2017',
-                  time: '2:30 pm',
-                  interviewee: 'Joe Lei',
-                  email: 'Joe@gmail.com',
-                  interviewer: 'Matt Reyes'
-                },
-                {date: 'Friday August 4, 2017',
-                  time: '3:30 pm',
-                  interviewee: 'Victor Ngo',
-                  email: 'Victor@gmail.com',
-                  interviewer: 'Matt Reyes'
-                },
-                {date: 'Friday August 4, 2017',
-                  time: '4:30 pm',
-                  interviewee: 'June Park',
-                  email: 'June@gmail.com',
-                  interviewer: 'Matt Reyes'
-                }],
+        {date: 'Friday August 4, 2017',
+          time: '2:30 pm',
+          interviewee: 'Joe Lei',
+          email: 'Joe@gmail.com',
+          interviewer: 'June Park'
+        },
+        {date: 'Friday August 4, 2017',
+          time: '3:30 pm',
+          interviewee: 'Victor Ngo',
+          email: 'Victor@gmail.com',
+          interviewer: 'June Park'
+        },
+        {date: 'Friday August 4, 2017',
+          time: '4:30 pm',
+          interviewee: 'Matt',
+          email: 'Matt@gmail.com',
+          interviewer: 'June Park'
+        }],
       past: [
-            {date: 'Monday July 31, 2017',
-              time: '2:30 pm',
-              interviewee: 'Kirk Rohani',
-              email: 'Kirk@gmail.com',
-              interviewer: 'Matt Reyes'
-            },
-            {date: 'Monday July 31, 2017',
-              time: '3:30 pm',
-              interviewee: 'Paul Dockery',
-              email: 'Paul@gmail.com',
-              interviewer: 'Matt Reyes'
-            }]
-    }
+        {date: 'Monday July 31, 2017',
+          time: '2:30 pm',
+          interviewee: 'Kirk Rohani',
+          email: 'Kirk@gmail.com',
+          interviewer: 'June Park'
+        },
+        {date: 'Monday July 31, 2017',
+          time: '3:30 pm',
+          interviewee: 'Paul Dockery',
+          email: 'Paul@gmail.com',
+          interviewer: 'June Park'
+        }
+      ]
+    };
   }
 
 
