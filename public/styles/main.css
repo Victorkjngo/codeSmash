@@ -328,11 +328,6 @@ footer {
   padding: 20px
 }
 
-#invite {
-  background: #26dbb8;
-  border-color: #26dbb8;
-}
-
 .contact-list {
   list-style-type: none;
   padding: 0;
@@ -518,4 +513,10 @@ footer {
 }
 .p-blue button {
   background: #3f4bb8;
+}
+
+
+/*dashboard sidebar*/
+.sidebar {
+  margin-top: 30px;
 }

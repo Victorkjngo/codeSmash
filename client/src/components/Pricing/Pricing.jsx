@@ -115,7 +115,7 @@ class Pricing extends React.Component {
         </div>
 
 
-        
+
 
 
 
@@ -126,6 +126,5 @@ class Pricing extends React.Component {
 }
 
 export default Pricing;
-
 
 
