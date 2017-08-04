@@ -8,14 +8,37 @@ class PlaygroundFooter extends Component {
     
     this.state = {
       questionList: [
-        { topic: 'Apples',
-          code: `console.log('Apples')`
+        { topic: 'MinMoves',
+          code: `var minMoves2 = function(nums) {\n\t/* \n\tInput:
+\t[1,2,3]\n\tOutput: 2\n\tExplanation:\n\t\tOnly two moves are needed (remember each move increments or decrements one element):
+\t[1,2,3]  =>  [2,2,3]  =>  [2,2,2]
+\t*/
+};`
         },
-        { topic: 'Bananas',
-          code: `console.log('Bananas')`
+        { topic: 'ZigZag Conversion',
+          code: `var convert = function(s, numRows) {
+\t/*
+\t\tThe string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
+
+\t\tP   A   H   N
+\t\tA P L S I I G
+\t\tY   I   R
+\t\tAnd then read line by line: "PAHNAPLSIIGYIR"
+\t\tWrite the code that will take a string and make this conversion given a number of rows:
+
+\t\tstring convert(string text, int nRows);
+\t\tconvert("PAYPALISHIRING", 3) should return "PAHNAPLSIIGYIR".
+\t*/  
+};`
         },
-        { topic: 'Pineapples',
-          code: `console.log('Pineapples')`
+        { topic: 'Valid Parenthesis',
+          code: `var isValid = function(s) {
+\t/*
+\t\tGiven a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+\t\tThe brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.  
+\t*/  
+};`
         }
       ],
       selectTopic: ''
@@ -96,8 +119,7 @@ class PlaygroundFooter extends Component {
                     <span id="selected">Topics</span>
                     <span className="caret"></span>
                   </button>
-                  <ul className="dropdown-menu footer-dropup" aria-labelledby="dropdownMenu1">
-                    {/* Voodoo magic below */}
+                  <ul id="question_injector" className="dropdown-menu footer-dropup" aria-labelledby="dropdownMenu1">
                     {this.state.questionList.map((question, i) => <li key={i}>{question.topic}</li>)}
                   </ul>
                 </div>
