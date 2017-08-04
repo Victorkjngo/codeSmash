@@ -328,7 +328,7 @@ class WebRTC extends Component {
   }
 
   handleVideoToggle() {
-    $('#video-toggle').on('click', $('#video-bar').slideToggle());
+    $('#video-toggle').on('click', $('#video-bar').toggle());
 
   }
 
